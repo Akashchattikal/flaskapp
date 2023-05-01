@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practice</title>
+        <link rel  = "stylesheet" href = "/static/css/style.css">
+    </head>
+    <body>
+        <header>
+            {% include "header.html" %}
+            <nav>
+                {% include "nav.html" %}
+            </nav>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            {% include "footer.html" %}
+        </footer>
+    </body>
+</html>

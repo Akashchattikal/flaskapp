@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<img src = "{{ pizza[4] }}"/>
+<h2>{{ pizza[1] }}</h2>
+<p>{{ pizza[2] }}</p>
+<h3>Base:</h3>
+<p>Made From A {{ base[0] }} Base</p>
+<h3>Ingrediants:</h3>
+{% for item in ingrediants %}
+    <p>
+        <li> {{ item[1] }} - {{ item[2] }} </li>
+    </p>
+    <h3>Ingrediants:</h3>
+{% for item in Seasonings %}
+    <p>
+        <li> {{ item[1] }} - {{ item[2] }} </li>
+    </p>
+{% endfor %}
+{% endblock %}

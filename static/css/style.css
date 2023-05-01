@@ -1,0 +1,48 @@
+/**********/
+/**      **/
+/**GLOBAL**/
+/**      **/
+/**********/
+
+body {
+    font-family:"Comic Sans MS";
+}
+
+h1 {
+    color:Blue;
+    padding:50px;
+}
+/**********/
+/**      **/
+/**HEADER**/
+/**      **/
+/**********/
+
+header {
+    background-color : #E7E7E7;
+}
+
+header h1 {
+    color:Black;
+}
+
+header ::after {
+    content: ' ';
+    display: table;
+    clear: both;
+}
+
+nav {
+    width: 80%;
+    margin: 0 auto;
+    float: right;
+}
+
+.logo {
+    float: left;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
