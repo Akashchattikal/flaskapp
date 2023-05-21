@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Taco King</title>
-        <link rel  = "stylesheet" href = "/static/css/style.css">
-        
 
-    </head>
-    <body>
-        <header class="header">
-            <div class="header_content">
-                <a href="#" class="logo">
-                    <img class="logo_img" src=static/images/logo.png alt="logo">
-                </a>
-                <nav class="nav">
-                    {% include "nav.html" %}
-                </nav>
-            </div>
-        </header>
-        <main>
-            {% block content %}{% endblock %}
-        </main>
-        <footer>
-            {% include "footer.html" %}
-        </footer>
-    </body>
-    
+<head>
+    <title>Taco King</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="header_content">
+            <a href="#" class="logo">
+                <img class="logo_img" src=static/images/logo.png alt="logo">
+            </a>
+            <nav class="nav">
+                {% include "nav.html" %}
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        {% include "footer.html" %}
+    </footer>
+</body>
+
 </html>

@@ -13,7 +13,28 @@
 body {
     background-color: rgb(208, 233, 255);
     min-height: 5000px;
-    padding-top: 60px;
+    padding-top: 125px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    background-image: url(../images/home.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+main {
+    padding-left: 10px;
+    color:#E7E7E7;
+}
+
+footer {
+    margin-top: auto;
+    color:#E7E7E7;
+}
+
+h2 {
+    font-size: larger;
 }
 
 a {
@@ -43,7 +64,7 @@ ul {
 }
 
 .logo_img {
-    width: 145px;
+    width: 300px;
     display: block;
 }
 
@@ -58,10 +79,6 @@ ul {
     font-size: 15px;
     transition: all 0.4s;
     position: relative;
-}
-
-.active {
-    color: black;
 }
 
 .nav_link:hover,
@@ -84,10 +101,18 @@ ul {
     transition: all 0.2s;
     opacity: 0;
     pointer-events: none;
+    border-radius: 1000px;
 }
 
-
-
+.start {
+    color: black;
+    background-color: #F24C00;
+    padding: 10px 21px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+}
 .btn {
     color: black;
     background-color: #F9C784;
@@ -100,10 +125,10 @@ ul {
 
 .btn:hover {
     background-color: #e9b979;
-  }
+}
 
 
-@media (max-width: 656px) {
+@media (max-width: 796px) {
     .header_content {
         flex-direction: column;
         align-items: center;
@@ -115,4 +140,53 @@ ul {
     .nav_list {
         column-gap: 20px;
     }
+}
+
+table, th, td {
+    border:1px solid rgb(255, 255, 255);
+    border-radius: 20px;
+  }
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(106, 106, 106, 0.4);
+}
+
+
+td {
+    width: 150px;
+    padding-left:20px;
+    padding-top:20px;
+    padding-right:20px;
+    padding-bottom:20px;
+
+}
+
+.title {
+    font-family: "Montserrat", sans-serif;
+    padding-bottom: 20px;
+    padding-top: 50px;
+    font-size: 55px;
+    text-align: center
+}
+
+.semi-title {
+    font-family: sans-serif;
+    font-size:xx-large;
+}
+
+.section {
+    border:2px solid rgb(106, 106, 106);
+    background-color: rgb(106, 106, 106, 0.5);
+    text-align: center
+}
+
+.multiple-taco {
+    width: 100px;
 }

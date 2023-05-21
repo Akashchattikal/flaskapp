@@ -1,7 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Tacos Lists Below...</h1>
+<table style="width:75%" class="center">
+    <tr>
+        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 1</td>
+        <td width="">&nbsp;</td>
+        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 2</td>
+    </tr>
+    <tr>
+        <td>eeeee</td>
+    </tr>
+</table>
 
 {% for item in results %}
 <h2><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></h2> 
