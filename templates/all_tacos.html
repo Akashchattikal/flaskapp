@@ -1,18 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<table style="width:75%" class="center">
+{% for item in results %}
+<table style="width:93%" class="center">
     <tr>
-        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 1</td>
+        <td>&nbsp;</td>
+        <td class="taco_title">
+            <h1 style="text-align: center" class="semi-title">Our Products</h1>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">
+            <b><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></b>
+            <p>{{ item[2]}}</p>
+        </td>
         <td width="">&nbsp;</td>
         <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 2</td>
     </tr>
     <tr>
-        <td>eeeee</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 3</td>
+        <td width="">&nbsp;</td>
+        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 4</td>
     </tr>
 </table>
-
-{% for item in results %}
 <h2><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></h2> 
 <p>{{ item[2]}}</p>
 {% endfor %}

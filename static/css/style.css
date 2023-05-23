@@ -17,7 +17,6 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
-    background-image: url(../images/home.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -143,7 +142,7 @@ ul {
 }
 
 table, th, td {
-    border:1px solid rgb(255, 255, 255);
+
     border-radius: 20px;
   }
 
@@ -188,5 +187,29 @@ td {
 }
 
 .multiple-taco {
-    width: 100px;
+    width: 300px;
+}
+
+.taco_title {
+    background-color: rgb(106, 106, 106, 0.4)
+}
+
+.order_fit {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 93%;
+    background-color: rgb(106, 106, 106, 0.4)
+}
+
+.home {
+    background-image: url(../images/tacos.png);
+}
+
+.about {
+    background-image: url(../images/cut_board2.png);
+}
+
+.all_tacos {
+    background-image: url(../images/cut_board.png);
 }
