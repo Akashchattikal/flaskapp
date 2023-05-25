@@ -17,9 +17,6 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
 }
 
 main {
@@ -142,7 +139,7 @@ ul {
 }
 
 table, th, td {
-
+    border: 1px solid black;
     border-radius: 20px;
   }
 
@@ -154,7 +151,7 @@ table, th, td {
 .table {
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(106, 106, 106, 0.4);
+    background-color: rgb(106, 106, 106, 0.5);
 }
 
 
@@ -187,11 +184,11 @@ td {
 }
 
 .multiple-taco {
-    width: 300px;
+    width: 500px;
 }
 
 .taco_title {
-    background-color: rgb(106, 106, 106, 0.4)
+    background-color: rgb(106, 106, 106, 0.5)
 }
 
 .order_fit {
@@ -199,17 +196,33 @@ td {
     margin-left: auto;
     margin-right: auto;
     width: 93%;
-    background-color: rgb(106, 106, 106, 0.4)
+    background-color: rgb(106, 106, 106, 0.5)
 }
 
 .home {
     background-image: url(../images/tacos.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 .about {
-    background-image: url(../images/cut_board2.png);
+    background-image: url(../images/cut_board.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 .all_tacos {
-    background-image: url(../images/cut_board.png);
+    background-image: url(../images/cut_board2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.order {
+    background-image: url(../images/order.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }

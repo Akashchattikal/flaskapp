@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% for item in results %}
-<table style="width:93%" class="center">
+<body class="all_tacos">
+    {% for item in results %}
+    <table style="width:70%" class="center">
     <tr>
         <td>&nbsp;</td>
         <td class="taco_title">
@@ -10,6 +11,8 @@
         </td>
         <td>&nbsp;</td>
     </tr>
+    </table>
+    <table class="center">
     <tr>
         <td colspan="3">&nbsp;</td>
     </tr>
@@ -18,7 +21,7 @@
             <b><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></b>
             <p>{{ item[2]}}</p>
         </td>
-        <td width="">&nbsp;</td>
+        <td style ="width: 210px;">&nbsp;</td>
         <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 2</td>
     </tr>
     <tr>
@@ -29,8 +32,9 @@
         <td width="">&nbsp;</td>
         <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco">Taco 4</td>
     </tr>
-</table>
-<h2><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></h2> 
-<p>{{ item[2]}}</p>
-{% endfor %}
+    </table>
+    <h2><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></h2> 
+    <p>{{ item[2]}}</p>
+    {% endfor %}
+</body>
 {% endblock %}
