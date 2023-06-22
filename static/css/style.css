@@ -139,7 +139,6 @@ ul {
 }
 
 table, th, td {
-    border: 1px solid black;
     border-radius: 20px;
   }
 
@@ -225,4 +224,34 @@ td {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
+}
+.column { 
+    float: left; 
+    width: 33.33%; 
+    padding-top: 10px;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    padding-bottom: 7.5px;
+}
+
+/* Hide The disclosure widget: */
+.dropdown summary {
+    list-style: none;
+    cursor: pointer;
+    text-align: center; 
+  }
+
+/* Detache details content */
+.dropdown .dropdown-content {
+    position: absolute;
+    min-inline-size: max-content;
+    background-color: rgb(106, 106, 106, 0.6);
+    padding: 10px 10px 10px 10px; 
+    border-radius: 20px;
+    width: 4px;
+}
+
+/* Standard Syntax -  Prevent User Text Select*/
+.prevent-select {
+    user-select: none;
 }
