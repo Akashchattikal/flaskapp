@@ -244,14 +244,18 @@ td {
 /* Detache details content */
 .dropdown .dropdown-content {
     position: absolute;
-    min-inline-size: max-content;
-    background-color: rgb(106, 106, 106, 0.6);
+    border-radius: 7px;
+    background-color: rgb(29, 29, 29);
     padding: 10px 10px 10px 10px; 
-    border-radius: 20px;
-    width: 4px;
+    width: 150px;
+    transform: translateY(+27px)
 }
+
+
 
 /* Standard Syntax -  Prevent User Text Select*/
 .prevent-select {
     user-select: none;
 }
+
+
