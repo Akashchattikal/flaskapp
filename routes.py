@@ -22,7 +22,7 @@ def all_pizzas():
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor() 
     cur.execute("SELECT * FROM Taco_Types") 
-    results = cur.fetchall()    
+    results = cur.fetchall()
     return render_template("all_tacos.html", results = results)
 
 if __name__ == "__main__":
