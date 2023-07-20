@@ -68,8 +68,8 @@
         </td>
         <td style ="width: 210px;">&nbsp;</td>
         <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-            <b>Taco 2</b>
-            <p style="padding-bottom: 3%;">Description</p>
+            <b><a href = "/Taco_Types/{{ item [1] }}">{{ item[1]}}</a></b>
+            <p style="padding-bottom: 3%;">{{ item[2]}}</p>
             <div class="column">
                 <div class="dropdown">
                     <details>
@@ -222,8 +222,7 @@
         </td>
     </tr>
     </table>
-    <h2><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></h2> 
-    <p>{{ item[2]}}</p>
+
     {% endfor %}
 </body>
 {% endblock %}
