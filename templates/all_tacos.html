@@ -2,227 +2,71 @@
 {% block content %}
 
 <body class="all_tacos">
-    {% for item in results %}
     <table style="width:70%" class="center">
-    <tr>
-        <td>&nbsp;</td>
-        <td class="taco_title">
-            <h1 style="text-align: center" class="semi-title">Our Products</h1>
-        </td>
-        <td>&nbsp;</td>
-    </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class="taco_title">
+                <h1 style="text-align: center" class="semi-title">Our Products</h1>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
     </table>
-    <table class="center">
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-            <b><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></b>
-            <p style="padding-bottom: 3%;">{{ item[2]}}</p>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Ingredients
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content center">
-                            Dropdown content here…
+    <table style="padding-left: 257px;">
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            {% for item in results %}
+            <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
+                <b><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></b>
+                <p style="padding-bottom: 3%;">{{ item[2]}}</p>
+                <div class="column">
+                    <div class="dropdown">
+                        <details>
+                            <summary>
+                                <div class="dropdown-trigger">
+                                Ingredients
+                                </div>
+                            </summary>
+                            <div class="dropdown-content center">
+                                Dropdown content here…
+                        </div>
+                        </details>
                     </div>
-                    </details>
                 </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Seasonings
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
+                <div class="column">
+                    <div class="dropdown">
+                        <details>
+                            <summary>
+                                <div class="dropdown-trigger">
+                                Seasonings
+                                </div>
+                            </summary>
+                            <div class="dropdown-content">
+                                Dropdown content here…
+                        </div>
+                        </details>
                     </div>
-                    </details>
                 </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Locations Available
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
+                <div class="column">
+                    <div class="dropdown">
+                        <details>
+                            <summary>
+                                <div class="dropdown-trigger">
+                                Locations Available
+                                </div>
+                            </summary>
+                        
+                            <div class="dropdown-content">
+                                Dropdown content here…
+                        </div>
+                        </details>
                     </div>
-                    </details>
                 </div>
-            </div>
-        </td>
-        <td style ="width: 210px;">&nbsp;</td>
-        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-            <b><a href = "/Taco_Types/{{ item [1] }}">{{ item[1]}}</a></b>
-            <p style="padding-bottom: 3%;">{{ item[2]}}</p>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Ingredients
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content center">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Seasonings
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Locations Available
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-            <b>Taco 3</b>
-            <p style="padding-bottom: 3%;">Description</p>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Ingredients
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content center">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Seasonings
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Locations Available
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-        </td>
-        <td width="">&nbsp;</td>
-        <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-            <b>Taco 4</b>
-            <p style="padding-bottom: 3%;">Description</p>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Ingredients
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content center">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Seasonings
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-            <div class="column">
-                <div class="dropdown">
-                    <details>
-                        <summary>
-                            <div class="dropdown-trigger">
-                            Locations Available
-                            </div>
-                        </summary>
-                    
-                        <div class="dropdown-content">
-                            Dropdown content here…
-                    </div>
-                    </details>
-                </div>
-            </div>
-        </td>
-    </tr>
+            </td>
+            <td>&nbsp;</td>
+            {% endfor %}
+        </tr>
     </table>
-
-    {% endfor %}
 </body>
 {% endblock %}
