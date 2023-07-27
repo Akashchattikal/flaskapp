@@ -21,10 +21,10 @@ def order():
 
 
 @app.route("/all_tacos")
-def all_pizzas():
+def all_tacos():
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor() 
-    cur.execute("SELECT * FROM Taco_Types") 
+    cur.execute("SELECT * FROM Taco_Types")
     results = cur.fetchall()
     return render_template("all_tacos.html", results=results)
 

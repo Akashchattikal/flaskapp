@@ -11,60 +11,62 @@
             <td>&nbsp;</td>
         </tr>
     </table>
-    <table style="padding-left: 257px;">
+    <table class="center">
         <tr>
             <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
             {% for item in results %}
-            <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
-                <b><a href = "/Taco_Types/{{ item [0] }}">{{ item[1]}}</a></b>
-                <p style="padding-bottom: 3%;">{{ item[2]}}</p>
-                <div class="column">
-                    <div class="dropdown">
-                        <details>
-                            <summary>
-                                <div class="dropdown-trigger">
-                                Ingredients
-                                </div>
-                            </summary>
-                            <div class="dropdown-content center">
-                                Dropdown content here…
+                {% if item[0] <= 2 %}
+                <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
+                    <b><a href = "/Taco_Types/{{ item [0] }}"><img class="taco_img" src="{{ item[1]}}"></a></b>
+                    <p style="padding-bottom: 3%;">{{ item[2]}}</p>
+                    <div class="column">
+                        <div class="dropdown">
+                            <details>
+                                <summary>
+                                    <div class="dropdown-trigger">
+                                    Ingredients
+                                    </div>
+                                </summary>
+                                <div class="dropdown-content center">
+                                    Dropdown content here…
+                            </div>
+                            </details>
                         </div>
-                        </details>
                     </div>
-                </div>
-                <div class="column">
-                    <div class="dropdown">
-                        <details>
-                            <summary>
-                                <div class="dropdown-trigger">
-                                Seasonings
-                                </div>
-                            </summary>
-                            <div class="dropdown-content">
-                                Dropdown content here…
+                    <div class="column">
+                        <div class="dropdown">
+                            <details>
+                                <summary>
+                                    <div class="dropdown-trigger">
+                                    Seasonings
+                                    </div>
+                                </summary>
+                                <div class="dropdown-content">
+                                    Dropdown content here…
+                            </div>
+                            </details>
                         </div>
-                        </details>
                     </div>
-                </div>
-                <div class="column">
-                    <div class="dropdown">
-                        <details>
-                            <summary>
-                                <div class="dropdown-trigger">
-                                Locations Available
-                                </div>
-                            </summary>
-                        
-                            <div class="dropdown-content">
-                                Dropdown content here…
+                    <div class="column">
+                        <div class="dropdown">
+                            <details>
+                                <summary>
+                                    <div class="dropdown-trigger">
+                                    Locations Available
+                                    </div>
+                                </summary>
+                            
+                                <div class="dropdown-content">
+                                    Dropdown content here…
+                            </div>
+                            </details>
                         </div>
-                        </details>
                     </div>
-                </div>
-            </td>
-            <td>&nbsp;</td>
+                </td>
+                <td>&nbsp;</td>
+                {% endif %}
             {% endfor %}
         </tr>
     </table>
