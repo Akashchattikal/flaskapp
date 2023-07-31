@@ -23,10 +23,15 @@ def order():
 @app.route("/all_tacos")
 def all_tacos():
     conn = sqlite3.connect("tacoshop.db")
-    cur = conn.cursor() 
+    cur = conn.cursor()
     cur.execute("SELECT * FROM Taco_Types")
     results = cur.fetchall()
     return render_template("all_tacos.html", results=results)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 if __name__ == "__main__":

@@ -173,13 +173,13 @@ td {
 
 }
 
-.column { 
+.row { 
     float: left; 
     width: 33.33%; 
     padding-top: 10px;
     border-right: 1px solid white;
     border-left: 1px solid white;
-    padding-bottom: 7.5px;
+    padding-bottom:  7.5px;
 }
 
 
@@ -294,7 +294,9 @@ a {
 }
 
 .taco_img {
-    height: 300px;
-    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 220px;
+    width: 220px;
 }
 
