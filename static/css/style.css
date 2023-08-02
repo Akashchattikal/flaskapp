@@ -157,6 +157,8 @@ table, th, td {
     margin-right: auto;
 }
 
+
+
 .table {
     margin-left: auto;
     margin-right: auto;
@@ -293,10 +295,24 @@ a {
     user-select: none;
 }
 
+/*************************/
+/***Image Customization***/
+/*************************/
+
+
 .taco_img {
+    display: block;
     margin-left: auto;
     margin-right: auto;
     height: 220px;
     width: 220px;
 }
 
+.error {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    width: 700px;
+
+}
