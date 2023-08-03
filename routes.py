@@ -29,6 +29,19 @@ def all_tacos():
     return render_template("all_tacos.html", results=results)
 
 
+@app.route('/tacos/<int:id>')
+def tacos(id):
+    conn = sqlite3.connect("tacoshop.db")
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Taco_Types WHERE id = ?', (id,))
+    taco = cur.fetchone()
+    cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[4],))
+    tortilla = cur.fetchone()
+    cur.execute('SELECT name FROM Ingrediants WHERE id IN(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,))
+    ingrediants = cur.fetchall()
+    return render_template('tacos.html', ingrediants=ingrediants, tortilla=tortilla, taco=taco)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

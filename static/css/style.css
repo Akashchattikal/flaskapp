@@ -14,7 +14,7 @@
 
 body {
     background-color: rgb(208, 233, 255);
-    min-height: 5000px;
+    min-height: 1500px;
     padding-top: 125px;
     display: flex;
     flex-direction: column;
@@ -157,6 +157,11 @@ table, th, td {
     margin-right: auto;
 }
 
+.center_name {
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
 
 
 .table {
@@ -188,7 +193,7 @@ td {
 .section {
     border:2px solid rgb(106, 106, 106);
     background-color: rgb(106, 106, 106, 0.5);
-    text-align: center
+    text-align: center;
 }
 
 .multiple-taco {
@@ -196,7 +201,7 @@ td {
 }
 
 .taco_title {
-    background-color: rgb(106, 106, 106, 0.5)
+    background-color: rgb(106, 106, 106, 0.5);
 }
 
 .order_fit {
@@ -234,6 +239,12 @@ a {
     font-size:xx-large;
 }
 
+h4 {
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    align: center;
+}
 
 /**************************/
 /***BACKGROUND CUSTOMIZE***/
@@ -306,6 +317,7 @@ a {
     margin-right: auto;
     height: 220px;
     width: 220px;
+    border-radius: 20px;
 }
 
 .error {

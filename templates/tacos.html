@@ -1,20 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<img src = "{{ pizza[4] }}"/>
-<h2>{{ pizza[1] }}</h2>
-<p>{{ pizza[2] }}</p>
-<h3>Base:</h3>
-<p>Made From A {{ base[0] }} Base</p>
-<h3>Ingrediants:</h3>
-{% for item in ingrediants %}
-    <p>
-        <li> {{ item[1] }} - {{ item[2] }} </li>
-    </p>
-    <h3>Ingrediants:</h3>
-{% for item in Seasonings %}
-    <p>
-        <li> {{ item[1] }} - {{ item[2] }} </li>
-    </p>
-{% endfor %}
+<table style="width:93%" class="center">
+    <tr style="background-color: rgb(106, 106, 106, 0.5)">
+        <td style="text-align: center">
+            <img src="{{ taco[1] }}"/>
+            <h1>{{ taco[2] }}</h1>
+            <p>{{ taco[4] }}</p>
+            <h3>Base:</h3>
+            <p>Made From A {{ tortilla[2] }} Tortilla</p>
+            <h3>Ingrediants:</h3>
+            {% for item in Ingrediants %}
+                <p>
+                    <li> {{ item[1] }} - {{ item[2] }} </li>
+                </p>
+            {% endfor %}
+                <h3>Seasonings:</h3>
+            {% for item in Seasonings %}
+                <p>
+                    <li> {{ item[1] }} - {{ item[2] }} </li>
+                </p>
+            {% endfor %}
+            <p>Costs {{ taco[5] }}</p>
+        </td>
+    </tr>
+</table>
 {% endblock %}
