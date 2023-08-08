@@ -35,11 +35,15 @@ def tacos(id):
     cur = conn.cursor()
     cur.execute('SELECT * FROM Taco_Types WHERE id = ?', (id,))
     taco = cur.fetchone()
-    cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[4],))
+    cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[3],))
     tortilla = cur.fetchone()
-    cur.execute('SELECT name FROM Ingrediants WHERE id IN(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,))
+    cur.execute('SELECT * FROM Ingrediants WHERE id IN(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,))
     ingrediants = cur.fetchall()
-    return render_template('tacos.html', ingrediants=ingrediants, tortilla=tortilla, taco=taco)
+    cur.execute('SELECT * FROM Seasonings WHERE id IN(SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,))
+    seasonings = cur.fetchall()
+    return render_template('tacos.html',
+                           ingrediants=ingrediants, tortilla=tortilla,
+                           taco=taco, seasonings=seasonings)
 
 
 @app.errorhandler(404)

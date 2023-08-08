@@ -1,28 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<table style="width:93%" class="center">
-    <tr style="background-color: rgb(106, 106, 106, 0.5)">
-        <td style="text-align: center">
-            <img src="{{ taco[1] }}"/>
-            <h1>{{ taco[2] }}</h1>
-            <p>{{ taco[4] }}</p>
-            <h3>Base:</h3>
-            <p>Made From A {{ tortilla[2] }} Tortilla</p>
-            <h3>Ingrediants:</h3>
-            {% for item in Ingrediants %}
-                <p>
-                    <li> {{ item[1] }} - {{ item[2] }} </li>
-                </p>
-            {% endfor %}
-                <h3>Seasonings:</h3>
-            {% for item in Seasonings %}
-                <p>
-                    <li> {{ item[1] }} - {{ item[2] }} </li>
-                </p>
-            {% endfor %}
-            <p>Costs {{ taco[5] }}</p>
-        </td>
-    </tr>
-</table>
+<body class="each_taco">
+    <table style="width:70%" class="center">
+        <tr style="background-color: rgb(106, 106, 106, 0.5)">
+            <td style="text-align: center" class="norm_td">
+                <img src="{{taco[1]}}" />
+                <h1>{{ taco[2] }}</h1>
+                &nbsp;
+                <p>{{ taco[4] }}</p>
+                &nbsp;
+                <h3>Base:</h3>
+                <p>Made From A {{ tortilla[2] }} Tortilla</p>
+                &nbsp;
+                <h3>Ingrediants:</h3>
+                {% for item in ingrediants %}
+                    <p>
+                        <li> {{ item[1] }} - {{ item[2] }} </li>
+                    </p>
+                {% endfor %}
+                &nbsp;
+                    <h3>Seasonings:</h3>
+                {% for item in seasonings %}
+                    <p>
+                        <li> {{ item[1] }}</li>
+                    </p>
+                {% endfor %}
+                &nbsp;
+                <h3>Costs:</h3>
+                <p>Costs {{ taco[5] }}</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
 {% endblock %}

@@ -148,21 +148,21 @@ ul {
 
 table, th, td {
     border-radius: 20px;
+}
 
-  }
+.order2 {
+    padding-top: 40px;
+}
 
+/* Standard Syntax -  Prevent User Text Select*/
+.prevent-select {
+    user-select: none;
+}
 
 .center {
     margin-left: auto;
     margin-right: auto;
 }
-
-.center_name {
-    margin-left: auto;
-    margin-right: auto;
-    display:block;
-}
-
 
 .table {
     margin-left: auto;
@@ -170,14 +170,21 @@ table, th, td {
     background-color: rgb(106, 106, 106, 0.5);
 }
 
-
-td {
+.norm_td {
     width: 150px;
     padding-left:20px;
     padding-top:20px;
     padding-right:20px;
     padding-bottom:20px;
 
+}
+
+.taco_td {
+    width: 150px;
+    padding-left:20px;
+    padding-top:35px;
+    padding-right:20px;
+    padding-bottom:20px;
 }
 
 .row { 
@@ -197,7 +204,8 @@ td {
 }
 
 .multiple-taco {
-    width: 500px;
+    width: 300px;
+    background-color: rgb(106, 106, 106, 0.4);
 }
 
 .taco_title {
@@ -278,32 +286,11 @@ h4 {
     background-size: 100% 100%;
 }
 
-
-/********************/
-/***DROP-DOWN LIST***/
-/********************/
-
-/* Hide The disclosure widget: */
-.dropdown summary {
-    list-style: none;
-    cursor: pointer;
-    text-align: center; 
-  }
-
-/* Detache details content */
-.dropdown .dropdown-content {
-    position: absolute;
-    border-radius: 7px;
-    background-color: rgb(29, 29, 29);
-    padding: 10px 10px 10px 10px; 
-    width: 150px;
-    transform: translateY(+27px)
-}
-
-
-/* Standard Syntax -  Prevent User Text Select*/
-.prevent-select {
-    user-select: none;
+.each_taco {
+    background-image: url(../images/cut_board2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 125%;
 }
 
 /*************************/
@@ -328,3 +315,39 @@ h4 {
     width: 700px;
 
 }
+
+/********************/
+/***DROP-DOWN LIST***/
+/********************/
+
+
+.dropbody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    height: 100vh; 
+    background-color: #f1f1f1;
+   font-size: 1.2rem;
+  }
+
+input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+select {
+    width: 10em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+

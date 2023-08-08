@@ -4,41 +4,34 @@
 <body class="all_tacos">
     <table style="width:70%" class="center">
         <tr>
-            <td>&nbsp;</td>
-            <td class="taco_title">
+            <td class="norm_td">&nbsp;</td>
+            <td class="taco_title norm_td">
                 <h1 style="text-align: center" class="semi-title">Our Products</h1>
             </td>
-            <td>&nbsp;</td>
+            <td class="norm_td">&nbsp;</td>
         </tr>
     </table>
-    <table class="center_name">
+    <table class="center">
         <tr>
-            <td colspan="3">&nbsp;</td>
+            <td colspan="3" class="norm_td">&nbsp;</td>
         </tr>
         <tr>
             {% for item in results %}
-            {% if item[0] <= 5 %}
-                <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
+            {% if item[0] <= 4 %}
+                <td class="multiple-taco prevent-select taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
                     <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
                 </td>
-                <td>&nbsp;</td>
             {% endif %}
             {% endfor %}
-
-            
-        </tr>
-        <tr>
-            <td></td>
         </tr>
         <tr>
             {% for item in results %}
-            {% if item[0] > 5 %}
-                <td style="background-color: rgb(106, 106, 106, 0.4);" class="multiple-taco prevent-select">
+            {% if item[0] > 4 %}
+                <td class="multiple-taco prevent-select taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
                     <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
                 </td>
-                <td>&nbsp;</td>
             {% endif %}
             {% endfor %}
         </tr>
