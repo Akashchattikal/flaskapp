@@ -17,7 +17,13 @@ def about_us():
 
 @app.route("/order")
 def order():
-    return render_template("order.html", title="Order & Delivery")
+    conn = sqlite3.connect("tacoshop.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Taco_Types")
+    locations_names = cur.fetchall()
+    print(locations_names)
+    return render_template("order.html",
+                           locations_names=locations_names)
 
 
 @app.route("/all_tacos")

@@ -9,8 +9,20 @@
         </tr>
         <tr>&nbsp;</tr>
         <tr>
-            <td>123</td>
-        </tr>
+            <td>
+                <form>
+                    <label for="taco">Choose A Taco: </label>
+                    <select name="taco" id="taco">
+                        <optgroup label="Tacos">
+                            {% for item in locations_names %}
+                            <option value="{{item[2]}}">{{item[2]}}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
+            </td>
+        </tr>   
         <tr>
             <td class="norm_td">You Deliver we order</td>
         </tr>   
