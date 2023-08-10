@@ -1,15 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 <body class="order">
-    <table class="order_fit">
+    <table style="width:70%" class="center">
         <tr>
-            <td class="norm_td">
-                <h1 class="semi-title">Order & Delievery</h1>
+            <td class="norm_td">&nbsp;</td>
+            <td class="taco_title norm_td">
+                <h1 style="text-align: center" class="semi-title">Order & Delievery</h1>
             </td>
+            <td class="norm_td">&nbsp;</td>
         </tr>
+    </table>
+    <table class="order_fit">
         <tr>&nbsp;</tr>
         <tr>
-            <td>
+            <td class="norm_td">
                 <form>
                     <label for="taco">Choose A Taco: </label>
                     <select name="taco" id="taco">
@@ -22,9 +26,8 @@
                     <input type="submit" value="Submit">
                 </form>
             </td>
-        </tr>   
-        <tr>
-            <td class="norm_td">You Deliver we order</td>
+            <td class="norm_td">
+            </td>
         </tr>   
     </table>
 </body>

@@ -21,7 +21,6 @@ def order():
     cur = conn.cursor()
     cur.execute("SELECT * FROM Taco_Types")
     locations_names = cur.fetchall()
-    print(locations_names)
     return render_template("order.html",
                            locations_names=locations_names)
 
@@ -55,6 +54,11 @@ def tacos(id):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+@app.route("/secret")
+def secret():
+    return render_template("secret.html", title="Easter Egg")
 
 
 if __name__ == "__main__":
