@@ -179,8 +179,12 @@ table, th, td {
 .orders_table {
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(106, 106, 106, 0.5);
+    background-color: rgb(106, 106, 106, 0.6);
     width: 60%;
+}
+
+.tacos_table {
+    width:70%;
 }
 
 .norm_td {
@@ -242,11 +246,21 @@ table, th, td {
     height: 890px;
 }
 
-.tr_404 {
+.table-w_93 {
+    width:93%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table-w_70 {
+    width:70%;
+}
+
+.table_bg {
     background-color: rgb(106, 106, 106, 0.5)
 }
 
-.td_404 {
+.td_center {
     width: 150px;
     padding-left:20px;
     padding-top:20px;
@@ -310,6 +324,12 @@ a {
     text-align: center
 }
 
+.h4_center {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 3%;
+}
+
 .semi-title {
     font-family: sans-serif;
     font-size:xx-large;
@@ -319,6 +339,10 @@ h4 {
     font-family: sans-serif;
     font-weight: 300;
     font-size: 18px;
+    text-align: center;
+}
+
+.semi_h1 {
     text-align: center;
 }
 

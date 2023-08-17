@@ -2,11 +2,11 @@
 {% block content %}
 
 <body class="all_tacos prevent-select">
-    <table style="width:70%" class="center">
+    <table class="tacos_table">
         <tr>
             <td class="norm_td">&nbsp;</td>
             <td class="taco_title norm_td">
-                <h1 style="text-align: center" class="semi-title">Our Products</h1>
+                <h1 class="semi-title semi_h1">Our Products</h1>
             </td>
             <td class="norm_td">&nbsp;</td>
         </tr>
@@ -20,7 +20,7 @@
             {% if item[0] <= 4 %}
                 <td class="multiple-taco taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
-                    <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
+                    <h4 class="h4_center">{{ item[2]}}</h4>
                 </td>
             {% endif %}
             {% endfor %}
@@ -30,7 +30,7 @@
             {% if item[0] > 4 %}
                 <td class="multiple-taco taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
-                    <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
+                    <h4 class="h4_center">{{ item[2]}}</h4>
                 </td>
             {% endif %}
             {% endfor %}
