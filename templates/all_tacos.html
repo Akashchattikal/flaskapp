@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<body class="all_tacos">
+<body class="all_tacos prevent-select">
     <table style="width:70%" class="center">
         <tr>
             <td class="norm_td">&nbsp;</td>
@@ -18,7 +18,7 @@
         <tr>
             {% for item in results %}
             {% if item[0] <= 4 %}
-                <td class="multiple-taco prevent-select taco_td">
+                <td class="multiple-taco taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
                     <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
                 </td>
@@ -28,7 +28,7 @@
         <tr>
             {% for item in results %}
             {% if item[0] > 4 %}
-                <td class="multiple-taco prevent-select taco_td">
+                <td class="multiple-taco taco_td">
                     <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
                     <h4 class="center" style="padding-bottom: 3%;">{{ item[2]}}</h4>
                 </td>

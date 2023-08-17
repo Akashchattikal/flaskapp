@@ -1,13 +1,22 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def home():
-    return render_template("home.html", title="Home")
+def select_database(statement, id, mode):
+    conn = sqlite3.connect("tacoshop.db")
+    cur = conn.cursor()
+    if id is None:
+        cur.execute(statement)
+    else:
+        cur.execute(statement, id)
+    if mode == 1:
+        results = cur.fetchall()
+    else:
+        results = cur.fetchone()
+    return results
 
 
 @app.route("/about")
@@ -15,14 +24,26 @@ def about_us():
     return render_template("about.html", title="About Us")
 
 
+@app.route("/orders")
+def orders():
+    return render_template("orders.html", title="Recipt")
+
+
+@app.route("/place_order", methods=["POST"])
+def place_order():
+    conn = sqlite3.connect('tacoshop.db')
+    cur = conn.cursor()
+    order_details = request.form.get("orderdetails")
+    name, cost = order_details.split(' ')
+    cur.execute("INSERT INTO Orders (name, cost) VALUES (?,?)",(name, cost))
+    conn.commit()
+    return render_template("/orders.html")
+
+
 @app.route("/order")
 def order():
-    conn = sqlite3.connect("tacoshop.db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Taco_Types")
-    locations_names = cur.fetchall()
-    return render_template("order.html",
-                           locations_names=locations_names)
+    locations_names = select_database("SELECT * FROM Taco_Types", None, 1)
+    return render_template("order.html", locations_names=locations_names)
 
 
 @app.route("/all_tacos")

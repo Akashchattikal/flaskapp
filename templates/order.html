@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<body class="order">
+
+<body class="order prevent-select">
     <table style="width:70%" class="center">
         <tr>
             <td class="norm_td">&nbsp;</td>
@@ -11,25 +12,59 @@
         </tr>
     </table>
     <table class="order_fit">
-        <tr>&nbsp;</tr>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <tr>
-            <td class="norm_td">
-                <form>
-                    <label for="taco">Choose A Taco: </label>
-                    <select name="taco" id="taco">
-                        <optgroup label="Tacos">
-                            {% for item in locations_names %}
-                            <option value="{{item[2]}}">{{item[2]}}</option>
-                            {% endfor %}
-                        </optgroup>
-                    </select>
-                    <input type="submit" value="Submit">
-                </form>
+            <td class="order_td">
+                <div class="custom-select">
+                    <form action="/place_order", method="post", enctype="multipart/form-data">
+                        <label for="taco"><p class="order_title">Order A Taco: </p></label>
+                        <select name="taco" id="taco" class="round_select">
+                            <optgroup label="Tacos">
+                                {% for item in locations_names %}
+                                <option value="{{item[2]}} {{item[5]}}" name="">{{item[2]}} - {{item[5]}}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                        <input type="submit" value="ORDER">
+                        <button type="button" id="order" onclick="showDialog()">Order Your Taco!</button>
+                    </form>
+                </div>
+                <dialog id="dialog_ord">
+                    <table>
+                        <tr>
+                            <td rowspan="2" class="img_td">&nbsp;</td>
+                        </tr>
+                        <tr >
+                            <td class="dialog_td">
+                                <b>Your Order: </b>
+                            </td>
+                            <td class="close_td"> 
+                                <form method="dialog">
+                                    <button onclick="closeDialog()" class="dialog_btn">🗙</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="img_td"></td>
+                            <td class="test"><span class="output"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="img_td">&nbsp;</td>
+                            <td class="test"><b>Thanks For Ordering!</b></td>
+                        </tr>
+                    </table>
+                </dialog>
             </td>
-            <td class="norm_td">
-            </td>
-        </tr>   
+        </tr>
     </table>
 </body>
+
+<script src="{{url_for('static', filename='/order_script.js')}}"></script>
 
 {% endblock %}
