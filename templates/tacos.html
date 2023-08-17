@@ -11,7 +11,7 @@
                 <p>{{ taco[4] }}</p>
                 &nbsp;
                 <h3>Base:</h3>
-                <p>Made From A {{ tortilla[2] }} Tortilla</p>
+                <p>Made From A {{ tortilla[0] }} Tortilla</p>
                 &nbsp;
                 <h3>Ingrediants:</h3>
                 {% for item in ingrediants %}
@@ -27,6 +27,11 @@
                     </p>
                 {% endfor %}
                 &nbsp;
+                    <h3>Location:</h3>
+                    <p>
+                        {{location}}
+                    </p>
+                    &nbsp;
                 <h3>Costs:</h3>
                 <p>Costs {{ taco[5] }}</p>
             </td>

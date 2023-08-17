@@ -148,7 +148,12 @@ ul {
 
 table, th, td {
     border-radius: 20px;
-    border: 1px solid black;
+}
+
+.orders_th {
+    padding-top: 20px;
+    padding-bottom: 25px;
+    font-size: 15px;
 }
 
 .order2 {
@@ -184,21 +189,6 @@ table, th, td {
     padding-top:20px;
     padding-right:20px;
     padding-bottom:20px;
-}
-
-.dialog_td {
-    width: 200px;
-    padding-left:20px;
-    padding-top:20px;
-    padding-right:20px;
-    padding-bottom:20px;
-}
-
-.close_td {
-    padding-left:10px;
-    padding-top:10px;
-    padding-right:10px;
-    padding-bottom:10px;
 }
 
 .taco_td {
@@ -252,6 +242,19 @@ table, th, td {
     height: 890px;
 }
 
+.tr_404 {
+    background-color: rgb(106, 106, 106, 0.5)
+}
+
+.td_404 {
+    width: 150px;
+    padding-left:20px;
+    padding-top:20px;
+    padding-right:20px;
+    padding-bottom:20px;
+    text-align: center
+}
+
 .order_td {
     background-color: rgb(106, 106, 106, 0.5);
     width: 150px;
@@ -276,6 +279,13 @@ table, th, td {
 
 .mix {
     border: 1px solid black;
+}
+
+.thanks {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    font-size: 10px;
+    
 }
 
 
@@ -379,6 +389,15 @@ h4 {
     border-radius: 20px;
 }
 
+.receipt_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 150px;
+    width: 150px;
+    border-radius: 20px;
+}
+
 .error {
     display: block;
     margin-left: auto;
@@ -429,7 +448,7 @@ optgroup {
     background-color: rgb(106, 106, 106);
 }
 
-button {
+input {
     border:2px solid rgb(106, 106, 106);
     background-color: rgb(106, 106, 106, 0.5);
     color:#E7E7E7;
@@ -441,22 +460,4 @@ button {
     margin-left: auto;
     margin-right: auto;
     width:200px;
-}
-
-/***********************/
-/***Pop-Up Dialog Box***/
-/***********************/
-
-dialog {
-    margin-left: auto;
-    margin-right: auto;
-    border:2px solid rgb(106, 106, 106);
-    background-color: rgb(106, 106, 106);
-    border-radius: 10px;
-    padding: 15px;
-    color:#E7E7E7;
-}
-
-.dialog_btn {
-    padding: 0.1px;
 }

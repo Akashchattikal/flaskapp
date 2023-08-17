@@ -19,6 +19,11 @@ def select_database(statement, id, mode):
     return results
 
 
+@app.route("/")
+def home():
+    return render_template("home.html", title="Home")
+
+
 @app.route("/about")
 def about_us():
     return render_template("about.html", title="About Us")
@@ -33,11 +38,19 @@ def orders():
 def place_order():
     conn = sqlite3.connect('tacoshop.db')
     cur = conn.cursor()
-    order_details = request.form.get("orderdetails")
-    name, cost = order_details.split(' ')
-    cur.execute("INSERT INTO Orders (name, cost) VALUES (?,?)",(name, cost))
+    taco_id = request.form.get("taco")
+    cur.execute("INSERT INTO Orders (taco) VALUES (?)", (taco_id,))
     conn.commit()
-    return render_template("/orders.html")
+    taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
+                           (taco_id,), 2)
+    photo = taco[1]
+    name = taco[2]
+    cost = taco[5]
+    location_id = taco[6]
+    location = select_database('SELECT name FROM Locations WHERE id = ?',
+                               (location_id,), 2)
+    return render_template("/orders.html", photo=photo, name=name,
+                           cost=cost, location=location[0])
 
 
 @app.route("/order")
@@ -63,13 +76,19 @@ def tacos(id):
     taco = cur.fetchone()
     cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[3],))
     tortilla = cur.fetchone()
-    cur.execute('SELECT * FROM Ingrediants WHERE id IN(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,))
+    cur.execute('SELECT * FROM Ingrediants WHERE id IN(SELECT iid FROM \
+Taco_Ingrediants WHERE tid = ?)', (id,))
     ingrediants = cur.fetchall()
-    cur.execute('SELECT * FROM Seasonings WHERE id IN(SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,))
+    cur.execute('SELECT * FROM Seasonings WHERE id IN(SELECT sid FROM \
+Taco_Seasonings WHERE tid = ?)', (id,))
     seasonings = cur.fetchall()
+    location_id = taco[6]
+    location = select_database('SELECT name FROM Locations WHERE id = ?',
+                               (location_id,), 2)
     return render_template('tacos.html',
                            ingrediants=ingrediants, tortilla=tortilla,
-                           taco=taco, seasonings=seasonings)
+                           taco=taco, seasonings=seasonings,
+                           location=location[0])
 
 
 @app.errorhandler(404)
