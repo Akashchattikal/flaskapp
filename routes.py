@@ -5,6 +5,8 @@ import sqlite3
 app = Flask(__name__)
 
 
+# Adds a connection to the database and chooses whether the code A
+# requires a fetchall() or fetchone() depending on the mode placed on the route
 def select_database(statement, id, mode):
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor()
@@ -19,44 +21,62 @@ def select_database(statement, id, mode):
     return results
 
 
+# Connects to home.html and adds a URL route, "/"
 @app.route("/")
 def home():
     return render_template("home.html", title="Home")
 
 
+# Connects to about.html and adds the URL route for it "/about"
 @app.route("/about")
 def about_us():
     return render_template("about.html", title="About Us")
 
 
+# Connects to orders.html and adds tbe URL route "/orders"
 @app.route("/orders")
 def orders():
     return render_template("orders.html", title="Recipt")
 
+# Connects order.html and adds the URL route "/order"
+@app.route("/order")
+def order():
+    # The "select_databse" connects the def function at the beginning
+    # of the routes.py to the order() function
+    # The data query "SELECT * FROM Taco_Types" brings everything from the
+    # table "Taco_Types" and renders it into the order.html
+    locations_names = select_database("SELECT * FROM Taco_Types", None, 1)
+    return render_template("order.html", locations_names=locations_names)
 
+
+# Connects orders table in the database to orders.html through the URL route
+# "/place_order"
 @app.route("/place_order", methods=["POST"])
 def place_order():
     conn = sqlite3.connect('tacoshop.db')
     cur = conn.cursor()
+    # This code makes "taco_id" into a request form
     taco_id = request.form.get("taco")
+    # This data query inserts the results from the request form into the "taco"
+    # column in the table "Orders" with the use of the value "taco_id" which
+    # came from the results of the request form
     cur.execute("INSERT INTO Orders (taco) VALUES (?)", (taco_id,))
     conn.commit()
     taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
                            (taco_id,), 2)
+    # The following code is used to create variables out of the items
+    # in the columns in the table "Taco_types"
     photo = taco[1]
     name = taco[2]
     cost = taco[5]
     location_id = taco[6]
+    # The following data query is used to select the items from the "name"
+    # column of the table "locations"
     location = select_database('SELECT name FROM Locations WHERE id = ?',
                                (location_id,), 2)
     return render_template("/orders.html", photo=photo, name=name,
                            cost=cost, location=location[0])
 
-
-@app.route("/order")
-def order():
-    locations_names = select_database("SELECT * FROM Taco_Types", None, 1)
-    return render_template("order.html", locations_names=locations_names)
 
 
 @app.route("/all_tacos")

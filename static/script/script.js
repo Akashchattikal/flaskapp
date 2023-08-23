@@ -15,3 +15,4 @@ if (path == "/") {
 }
 
 document.getElementById(linkID).style.fontWeight = "bold ";
+

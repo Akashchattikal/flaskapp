@@ -2,7 +2,7 @@
 {% block content %}
 
 <body class="all_tacos prevent-select">
-    <table class="tacos_table">
+    <table class="tacos_table center">
         <tr>
             <td class="norm_td">&nbsp;</td>
             <td class="taco_title norm_td">
@@ -15,6 +15,7 @@
         <tr>
             <td colspan="3" class="norm_td">&nbsp;</td>
         </tr>
+         <!--Displays 4 different tacos in each row in the invisible table-->
         <tr>
             {% for item in results %}
             {% if item[0] <= 4 %}
