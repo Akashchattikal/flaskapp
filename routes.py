@@ -21,24 +21,25 @@ def select_database(statement, id, mode):
     return results
 
 
-# Connects to home.html and adds a URL route, "/"
+# Creates a URL route called "/" and renders it into home.html
 @app.route("/")
 def home():
     return render_template("home.html", title="Home")
 
 
-# Connects to about.html and adds the URL route for it "/about"
+# Creates a URL route called "/about" and renders it into about.html
 @app.route("/about")
 def about_us():
     return render_template("about.html", title="About Us")
 
 
-# Connects to orders.html and adds tbe URL route "/orders"
+# Creates a URL route called "/orders" and renders it into orders.html
 @app.route("/orders")
 def orders():
     return render_template("orders.html", title="Recipt")
 
-# Connects order.html and adds the URL route "/order"
+
+# Creates a URL route called "/order" and renders it into order.html
 @app.route("/order")
 def order():
     # The "select_databse" connects the def function at the beginning
@@ -71,38 +72,62 @@ def place_order():
     cost = taco[5]
     location_id = taco[6]
     # The following data query is used to select the items from the "name"
-    # column of the table "locations"
+    # column of the table "locations" where the id is whatever the id is from
+    # the "loations" column in "Taco_Types" table.
     location = select_database('SELECT name FROM Locations WHERE id = ?',
                                (location_id,), 2)
     return render_template("/orders.html", photo=photo, name=name,
                            cost=cost, location=location[0])
 
 
-
+# Creates a URL route called "/all_tacos" and renders it into all_tacos.html
 @app.route("/all_tacos")
 def all_tacos():
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor()
+    # The following data query selects the items from the table "Taco_Types"
     cur.execute("SELECT * FROM Taco_Types")
+    # "fetchall()" makes the dataquery select everything from the table
     results = cur.fetchall()
     return render_template("all_tacos.html", results=results)
 
 
+# Creates a URL route called "/tacos<id>" where the <id> is the id of the items
+# selected in the all_tacos.html and renders it into tacos.html
 @app.route('/tacos/<int:id>')
 def tacos(id):
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor()
+    # The follwing data query is used to select a specific item from the table
+    # "Taco_Types" where the id is whatever the <id> is from the URL
     cur.execute('SELECT * FROM Taco_Types WHERE id = ?', (id,))
     taco = cur.fetchone()
+    # The following data query is used to select the name of the Tortialla used
+    # for taco the user selected with the use of the id in the 4th column of
+    # the table "Taco_Types"
     cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[3],))
     tortilla = cur.fetchone()
+    # The following data query is used to select all the ingrediants used for
+    # taco where the id (tid) is whatever the id used in the URL is
+    # through the table "Taco_Ingrediants"
     cur.execute('SELECT * FROM Ingrediants WHERE id IN(SELECT iid FROM \
 Taco_Ingrediants WHERE tid = ?)', (id,))
     ingrediants = cur.fetchall()
+    # The following data query is used to select all the seasonings used for
+    # taco where the id (tid) is whatever the id used in the URL is
+    # through the table "Taco_Seasonings"
     cur.execute('SELECT * FROM Seasonings WHERE id IN(SELECT sid FROM \
 Taco_Seasonings WHERE tid = ?)', (id,))
     seasonings = cur.fetchall()
+    # The follwing code is used to create a variable for items in column 7 of
+    # the table "Taco_Types where the locations of where specific tacos are
+    # availabe are inputed through its id
     location_id = taco[6]
+    # The following code establishes a connection with the function used to
+    # create a connection to the database where the data query can be used
+    # The following data query is used to select the specifc item from the
+    # column "name" in the table Locations where the id is the location_id
+    # variable
     location = select_database('SELECT name FROM Locations WHERE id = ?',
                                (location_id,), 2)
     return render_template('tacos.html',
@@ -111,11 +136,14 @@ Taco_Seasonings WHERE tid = ?)', (id,))
                            location=location[0])
 
 
+# The following code is used to display "404.html" when the website goes
+# into a page that does not exsist - Error 404
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 
+# Creates a URL route called "/secret" and renders it into secret.html
 @app.route("/secret")
 def secret():
     return render_template("secret.html", title="Easter Egg")
