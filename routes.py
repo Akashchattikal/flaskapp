@@ -21,6 +21,15 @@ def select_database(statement, id, mode):
     return results
 
 
+def commit_database(statement, id):
+    conn = sqlite3.connect("tacoshop.db")
+    cur = conn.cursor()
+    if id is None:
+        cur.execute(statement)
+    else:
+        cur.execute(statement, id)
+    conn.commit()
+
 # Creates a URL route called "/" and renders it into home.html
 @app.route("/")
 def home():
@@ -54,15 +63,8 @@ def order():
 # "/place_order"
 @app.route("/place_order", methods=["POST"])
 def place_order():
-    conn = sqlite3.connect('tacoshop.db')
-    cur = conn.cursor()
     # This code makes "taco_id" into a request form
     taco_id = request.form.get("taco")
-    # This data query inserts the results from the request form into the "taco"
-    # column in the table "Orders" with the use of the value "taco_id" which
-    # came from the results of the request form
-    cur.execute("INSERT INTO Orders (taco) VALUES (?)", (taco_id,))
-    conn.commit()
     taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
                            (taco_id,), 2)
     # The following code is used to create variables out of the items
@@ -76,6 +78,7 @@ def place_order():
     # the "loations" column in "Taco_Types" table.
     location = select_database('SELECT name FROM Locations WHERE id = ?',
                                (location_id,), 2)
+    commit_database("INSERT INTO Orders (taco) VALUES (?)", (taco_id,))
     return render_template("/orders.html", photo=photo, name=name,
                            cost=cost, location=location[0])
 
@@ -83,12 +86,9 @@ def place_order():
 # Creates a URL route called "/all_tacos" and renders it into all_tacos.html
 @app.route("/all_tacos")
 def all_tacos():
-    conn = sqlite3.connect("tacoshop.db")
-    cur = conn.cursor()
     # The following data query selects the items from the table "Taco_Types"
-    cur.execute("SELECT * FROM Taco_Types")
     # "fetchall()" makes the dataquery select everything from the table
-    results = cur.fetchall()
+    results = select_database("SELECT * FROM Taco_Types", None, 1)
     return render_template("all_tacos.html", results=results)
 
 
@@ -96,29 +96,24 @@ def all_tacos():
 # selected in the all_tacos.html and renders it into tacos.html
 @app.route('/tacos/<int:id>')
 def tacos(id):
-    conn = sqlite3.connect("tacoshop.db")
-    cur = conn.cursor()
     # The follwing data query is used to select a specific item from the table
     # "Taco_Types" where the id is whatever the <id> is from the URL
-    cur.execute('SELECT * FROM Taco_Types WHERE id = ?', (id,))
-    taco = cur.fetchone()
+    taco = select_database('SELECT * FROM Taco_Types WHERE id = ?', (id,), 2)
     # The following data query is used to select the name of the Tortialla used
     # for taco the user selected with the use of the id in the 4th column of
     # the table "Taco_Types"
-    cur.execute('SELECT name FROM Tortilla WHERE id = ?', (taco[3],))
-    tortilla = cur.fetchone()
+    tortilla = select_database('SELECT name FROM Tortilla WHERE id = ?',
+                               (taco[3],), 2)
     # The following data query is used to select all the ingrediants used for
     # taco where the id (tid) is whatever the id used in the URL is
     # through the table "Taco_Ingrediants"
-    cur.execute('SELECT * FROM Ingrediants WHERE id IN(SELECT iid FROM \
-Taco_Ingrediants WHERE tid = ?)', (id,))
-    ingrediants = cur.fetchall()
+    ingrediants = select_database('SELECT * FROM Ingrediants WHERE id IN \
+(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,), 1)
     # The following data query is used to select all the seasonings used for
     # taco where the id (tid) is whatever the id used in the URL is
     # through the table "Taco_Seasonings"
-    cur.execute('SELECT * FROM Seasonings WHERE id IN(SELECT sid FROM \
-Taco_Seasonings WHERE tid = ?)', (id,))
-    seasonings = cur.fetchall()
+    seasonings = select_database('SELECT * FROM Seasonings WHERE id IN \
+(SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,), 1)
     # The follwing code is used to create a variable for items in column 7 of
     # the table "Taco_Types where the locations of where specific tacos are
     # availabe are inputed through its id
