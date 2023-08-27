@@ -41,6 +41,7 @@ footer {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 1;
 }
 
 .header_content {
@@ -175,9 +176,12 @@ table, th, td {
 
 .norm_td {
     width: 150px;
+    padding:20px;
+}
+
+.quanty_td {
     padding-left:20px;
     padding-top:20px;
-    padding-right:20px;
     padding-bottom:20px;
 }
 
@@ -219,6 +223,8 @@ table, th, td {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .order_title {
@@ -248,20 +254,13 @@ table, th, td {
 
 .td_center {
     width: 150px;
-    padding-left:20px;
-    padding-top:20px;
-    padding-right:20px;
-    padding-bottom:20px;
+    padding:20px;
     text-align: center
 }
 
-.order_td {
+.order_tr {
     background-color: rgb(106, 106, 106, 0.5);
-    width: 150px;
-    padding-left:20px;
-    padding-top:20px;
-    padding-right:20px;
-    padding-bottom:20px;
+    padding:20px;
 }
 
 .test {
@@ -397,12 +396,23 @@ h4 {
     height: 220px;
     width: 220px;
     border-radius: 20px;
+    z-index: -1;
+}
+
+.admin_nav {
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-radius: 20px;
+    z-index: -1;
 }
 
 .taco_img:hover,
 .taco_img:focus { 
     transition: all 0.4s;
     opacity: 0.65;
+    z-index: -1;
+
 }
 
 .receipt_img {
@@ -447,6 +457,7 @@ label {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 select {
@@ -464,7 +475,21 @@ optgroup {
     background-color: rgb(106, 106, 106);
 }
 
-input {
+.qty_input {
+    border:2px solid rgb(106, 106, 106);
+    background-color: rgb(106, 106, 106, 0.5);
+    color:#E7E7E7;
+    border-radius: 10px;
+    padding: 10px;
+    width: 50px;
+}
+
+.arrow_num {
+    position: relative;
+}
+
+
+.select_input {
     border:2px solid rgb(106, 106, 106);
     background-color: rgb(106, 106, 106, 0.5);
     color:#E7E7E7;

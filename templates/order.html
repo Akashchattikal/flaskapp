@@ -11,7 +11,7 @@
             <td class="norm_td">&nbsp;</td>
         </tr>
     </table>
-    <table class="order_fit">
+    <table class="order_fit table_bg">
         <br>
         <br>
         <br>
@@ -19,20 +19,24 @@
         <br>
         <br>
         <tr>
-            <td class="order_td">
-                <div class="custom-select">
-                    <form action="/place_order", method="post", enctype="multipart/form-data">
-                        <label for="taco"><p class="order_title">Order A Taco: </p></label>
-                        <select name="taco" id="taco" class="round_select">
-                            <optgroup label="Tacos">
-                                {% for item in locations_names %}
-                                <option value="{{item[0]}}">{{item[2]}}</option>
-                                {% endfor %}
-                            </optgroup>
-                        </select>
-                        <input type="submit" value="Order">
-                    </form>
-                </div>
+            
+        </tr>
+        <tr>
+            <td>
+                <form action="/place_order", method="post", enctype="multipart/form-data">
+                    <label for="taco"><p class="order_title">Order A Taco: </p></label>
+                    <span class="arrow_num">
+                        <input type="number" class="qty_input">
+                    </span>
+                    <select name="taco" id="taco" class="round_select">
+                        <optgroup label="Tacos">
+                            {% for item in locations_names %}
+                            <option value="{{item[0]}}">{{item[2]}}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                    <input type="submit" value="Order" class="select_input">
+                </form>
             </td>
         </tr>
     </table>

@@ -30,6 +30,7 @@ def commit_database(statement, id):
         cur.execute(statement, id)
     conn.commit()
 
+
 # Creates a URL route called "/" and renders it into home.html
 @app.route("/")
 def home():
@@ -46,6 +47,18 @@ def about_us():
 @app.route("/orders")
 def orders():
     return render_template("orders.html", title="Recipt")
+
+
+# Creates a URL route called "/log" and renders it into log.html
+@app.route("/admin")
+def admin():
+    return render_template("admin.html", title="Admin")
+
+
+# Creates a URL route called "/log" and renders it into log.html
+@app.route("/log")
+def login():
+    return render_template("log.html", title="Login")
 
 
 # Creates a URL route called "/order" and renders it into order.html
