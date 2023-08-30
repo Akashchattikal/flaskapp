@@ -8,13 +8,17 @@
             <th class="orders_th"><h1>Your Order</h1></th>
             <td class="norm_td"></td>
         </tr>
+        {% for taco in tacos %}
         <tr>
-            <td class="norm_td"><img class="receipt_img" src="/{{photo}}"/></td>
-            <td class="td_center">{{name}} <br> Costs {{cost}}</td>
-            <td class="td_center">Available At <br> {{location}}</td>
+            <td class="norm_td"><img class="receipt_img" src="/{{taco[0]}}"/></td>
+            <td class="td_center">{{taco[1]}} <br> Costs {{taco[2]}}</td>
+            <td class="td_center">Available At <br> {{taco[3][0]}}</td>
         </tr>
+        {% endfor %}
         <td class="norm_td"></td>
-        <th class="thanks"><h1>Thanks For Ordering!</h1></th>
+        <th class="thanks">
+            <h1>Thanks For Ordering!<br></h1><br><h2>Your Total Cost Is: {{total_cost}} Gold Coins!<br><br>Pay Up At The Available Locations<br><br>Its A Fun Road Trip Experience!</h2>
+        </th>
         <td class="norm_td"></td>
     </table>
 </body>

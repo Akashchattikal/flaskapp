@@ -1,4 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<body>
+    <table class="admin_table">
+        {% for item in tranc %}
+        
+        <tr style="border: 1px solid black;">
+            <td><b>Transaction {{item[0]}}</b></td>
+            {% for i in item[1] %}
+            {% set outer_loop = loop %}
+            <tr>
+                <td></td>
+                <td>{{item[1][outer_loop.index0][0]}}</td>
+                <td>{{item[1][outer_loop.index0][1]}}</td>
+                <td>{{item[1][outer_loop.index0][2]}}</td>
+            </tr>
+            
+            {% endfor %}
+        </tr>
+
+        {% endfor %}
+    </table>
+</body>
+
+
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 
@@ -49,10 +49,29 @@ def orders():
     return render_template("orders.html", title="Recipt")
 
 
-# Creates a URL route called "/log" and renders it into log.html
+# Creates a URL route called "/admin" and renders it into log.html
 @app.route("/admin")
 def admin():
-    return render_template("admin.html", title="Admin")
+    # The following data query selects the items from the table "Orders"
+    # "fetchall()"  from the function makes the dataquery select everything
+    # from the table
+    tranc = select_database('SELECT * FROM Orders', None, 1)
+    transaction_list = []
+    for i in tranc:
+        id_num = i[0]
+        taco_list = []
+        for taco in range(len(i)):
+            if i[taco] is not None and taco != 0:
+                taco_info = select_database('SELECT name, price, location FROM Taco_Types WHERE id = ?', (i[taco],), 2)
+                name = taco_info[0]
+                price = taco_info[1]
+                location_id = taco_info[2]
+                location = select_database('SELECT name FROM Locations WHERE id = ?', (location_id,), 2)
+                taco_list.append([name, price, location[0]])
+        transaction_list.append([id_num, taco_list])
+    print(transaction_list)
+    return render_template("admin.html", tranc=transaction_list,
+                           title="Admin")
 
 
 # Creates a URL route called "/log" and renders it into log.html
@@ -77,23 +96,38 @@ def order():
 @app.route("/place_order", methods=["POST"])
 def place_order():
     # This code makes "taco_id" into a request form
-    taco_id = request.form.get("taco")
-    taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
-                           (taco_id,), 2)
-    # The following code is used to create variables out of the items
-    # in the columns in the table "Taco_types"
-    photo = taco[1]
-    name = taco[2]
-    cost = taco[5]
-    location_id = taco[6]
-    # The following data query is used to select the items from the "name"
-    # column of the table "locations" where the id is whatever the id is from
-    # the "loations" column in "Taco_Types" table.
-    location = select_database('SELECT name FROM Locations WHERE id = ?',
-                               (location_id,), 2)
-    commit_database("INSERT INTO Orders (taco) VALUES (?)", (taco_id,))
-    return render_template("/orders.html", photo=photo, name=name,
-                           cost=cost, location=location[0])
+    taco_id = request.form.getlist("taco")
+    taco_list = []
+    total_cost = 0
+    if taco_id:
+        for i in range(len(taco_id)):
+            # The following code is used to create variables out of the items
+            # in the columns in the table "Taco_types"
+            taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
+                                (taco_id[i],), 2)
+            photo = taco[1]
+            name = taco[2]
+            cost = taco[5]
+            location_id = taco[6]
+            location = select_database('SELECT name FROM Locations WHERE id = ?',
+                                    (location_id,), 2)
+            taco_name = "taco"+str(i+1)
+            taco_list.append([photo, name, cost, location])
+            total_cost += int(cost.split(" ")[0])
+            # The following data query is used to select the items from the "name"
+            # column of the table "locations" where the id is whatever the id is
+            # from the "loations" column in "Taco_Types" table.
+            if i == 0:
+                sql_statement = "INSERT INTO Orders (%s) VALUES (?)" % (taco_name,)
+                commit_database(sql_statement, (int(taco[0]),))
+            else:
+                last_id = select_database("SELECT id FROM Orders ORDER BY id DESC;", None, 2)
+                last_id = last_id[0]
+                sql_statement = "UPDATE Orders SET %s = %s WHERE id = %s" % (taco_name, taco_id[i], last_id)
+                commit_database(sql_statement, None)
+    else:
+        return redirect(url_for("order"))
+    return render_template("/orders.html", tacos=taco_list, total_cost=total_cost)
 
 
 # Creates a URL route called "/all_tacos" and renders it into all_tacos.html

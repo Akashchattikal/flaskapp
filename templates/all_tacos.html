@@ -5,36 +5,23 @@
     <table class="tacos_table center">
         <tr>
             <td class="norm_td">&nbsp;</td>
-            <td class="taco_title norm_td">
+            <td class="taco_title norm_td shadow">
                 <h1 class="semi-title semi_h1">Our Products</h1>
             </td>
             <td class="norm_td">&nbsp;</td>
         </tr>
-    </table>
-    <table class="center">
         <tr>
-            <td colspan="3" class="norm_td">&nbsp;</td>
-        </tr>
-        <tr>
-            {% for item in results %}
-            {% if item[0] <= 4 %}
-                <td class="multiple-taco taco_td">
-                    <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
-                    <h4 class="h4_center">{{ item[2]}}</h4>
-                </td>
-            {% endif %}
-            {% endfor %}
-        </tr>
-        <tr>
-            {% for item in results %}
-            {% if item[0] > 4 %}
-                <td class="multiple-taco taco_td">
-                    <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
-                    <h4 class="h4_center">{{ item[2]}}</h4>
-                </td>
-            {% endif %}
-            {% endfor %}
+            <td class="norm_td">&nbsp;</td>
         </tr>
     </table>
+    <!-- The class 'Container' is used to make a flex box using lists -->
+    <ul class="container">
+        {% for item in results %}
+        <li class="multiple-taco taco_td item_li rounded shadow">
+            <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
+            <h4 class="h4_center">{{ item[2]}}</h4>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 {% endblock %}

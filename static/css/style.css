@@ -27,8 +27,9 @@ main {
 }
 
 footer {
+    padding-top: 45px;
     margin-top: auto;
-    color:#E7E7E7;
+    background-color:#E7E7E7;
 }
 
 
@@ -64,7 +65,7 @@ footer {
     display: block;
 }
 
-ul {
+.nav_ul {
     list-style: none;
 }
 
@@ -134,7 +135,7 @@ ul {
 /*********************/
 
 table, th, td {
-    border-radius: 20px;
+    border-radius: 20px;    
 }
 
 .orders_th {
@@ -185,12 +186,18 @@ table, th, td {
     padding-bottom:20px;
 }
 
+.admin_table {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(106, 106, 106, 0.6);
+    width: 80%;
+}
+
 .taco_td {
-    width: 150px;
-    padding-left:20px;
+    width: 125px;
+    padding-left:10px;
     padding-top:35px;
-    padding-right:20px;
-    padding-bottom:35px;
+    padding-right:10px;
 }
 
 .row { 
@@ -204,7 +211,6 @@ table, th, td {
 
 
 .section {
-    border:2px solid rgb(106, 106, 106);
     background-color: rgb(106, 106, 106, 0.5);
     text-align: center;
 }
@@ -225,10 +231,6 @@ table, th, td {
     width: 50%;
     padding-top: 50px;
     padding-bottom: 50px;
-}
-
-.order_title {
-    font-size: 18px;
 }
 
 .secret_table {
@@ -284,7 +286,10 @@ table, th, td {
     padding-top: 20px;
     padding-bottom: 15px;
     font-size: 10px;
-    
+}
+
+.shadow {
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
 }
 
 
@@ -393,8 +398,8 @@ h4 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 220px;
-    width: 220px;
+    height: 200px;
+    width: 200px;
     border-radius: 20px;
     z-index: -1;
 }
@@ -481,7 +486,7 @@ optgroup {
     color:#E7E7E7;
     border-radius: 10px;
     padding: 10px;
-    width: 50px;
+    width: 60px;
 }
 
 .arrow_num {
@@ -494,7 +499,8 @@ optgroup {
     background-color: rgb(106, 106, 106, 0.5);
     color:#E7E7E7;
     border-radius: 10px;
-    padding: 5px;
+    padding: 20px;
+    font-size: 15px;
 }
 
 .custom-select {
@@ -502,3 +508,55 @@ optgroup {
     margin-right: auto;
     width:200px;
 }
+
+.row_btn {
+    border:2px solid rgb(106, 106, 106);
+    background-color: rgb(106, 106, 106, 0.5);
+    color:#E7E7E7;
+    border-radius: 20px;
+    padding: 8px;
+    font-size: 11px;
+}
+
+.row_btn:hover,
+.row_btn:focus {
+    background-color: rgba(106, 106, 106, 0.636);
+}
+
+.row_clear {
+    border:2px solid rgb(106, 106, 106);
+    background-color: rgb(106, 106, 106, 0.5);
+    color:#E7E7E7;
+    border-radius: 20px;
+    padding: 8px;
+    font-size: 11px;
+}
+
+.row_clear:hover,
+.row_clear:focus {
+    background-color: rgba(106, 106, 106, 0.636);
+}
+
+
+/**************/
+/***Flex Box***/
+/**************/
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+    row-gap: 15px;
+    column-gap: 15px;
+}
+
+.item_li {
+    text-align: center;
+    font-size: 50px;
+    line-height: 100px;
+    font-weight: bold;
+    border: 7px solid rgba(255, 255, 255, 0);
+}
+
