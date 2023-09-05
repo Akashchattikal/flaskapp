@@ -2,10 +2,10 @@
 {% block content %}
 
 <body>
-    <table class="admin_table">
+    <table class="admin_table shadow">
         {% for item in tranc %}
         
-        <tr style="border: 1px solid black;">
+        <tr style="border: 10px #000000;">
             <td><b>Transaction {{item[0]}}</b></td>
             {% for i in item[1] %}
             {% set outer_loop = loop %}

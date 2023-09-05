@@ -5,13 +5,13 @@
     <table class="table-w_70 center">
         <tr>
             <td class="norm_td">&nbsp;</td>
-            <td class="taco_title norm_td shadow">
+            <td class="taco_title norm_td shadow rounded">
                 <h1 style="text-align: center" class="semi-title">Order & Delievery</h1>
             </td>
             <td class="norm_td">&nbsp;</td>
         </tr>
     </table>
-    <table class="order_fit table_bg shadow">
+    <table class="order_fit table_bg shadow rounded">
         <br>
         <br>
         <br>
@@ -33,7 +33,7 @@
         <tr>
             <td>
                 <!-- The following code activates a the action of posting the select tags results into the Orders table in the database -->
-                <form action="/place_order", method="post", enctype="multipart/form-data">
+                <form class="taco_form" action="/place_order", method="post", enctype="multipart/form-data">
                     <b>
                         <br>
                         <select name="taco" id="taco" class="round_select">
@@ -58,19 +58,23 @@
     // The following code allows the user add 1 to the variable counter, every time the select tag is cloned and with this
     // limitation can be made to stop the function from cloning after it has 5 clones of the original
     var count = 0;
-    $("button").click(function(){
+    var button = document.getElementsByClassName("row_btn")
+    var form = document.getElementsByClassName("taco_form")
+    
+    $(button).click(function(){
         if (count < 5) {
-            $("b:last").clone().appendTo("form");
+            $("b:last").clone().appendTo(form);
             count += 1;
         }
     });
-
+    
     // The following code allows the user to remove the clones except for the original clone where the counter variable is at 0
     $("a").click(function(){
         if (count > 0){
             $("b:last").remove();
-            count -= 1
+            count -= 1;
         }
     });
 </script>
+
 {% endblock %}

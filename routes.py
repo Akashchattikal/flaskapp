@@ -56,20 +56,23 @@ def admin():
     # "fetchall()"  from the function makes the dataquery select everything
     # from the table
     tranc = select_database('SELECT * FROM Orders', None, 1)
+    # The following code makes a list variable to display all the orders
+    # in the admin page
     transaction_list = []
     for i in tranc:
         id_num = i[0]
         taco_list = []
         for taco in range(len(i)):
             if i[taco] is not None and taco != 0:
-                taco_info = select_database('SELECT name, price, location FROM Taco_Types WHERE id = ?', (i[taco],), 2)
+                taco_info = select_database('SELECT name, price, location \
+                FROM Taco_Types WHERE id = ?', (i[taco],), 2)
                 name = taco_info[0]
                 price = taco_info[1]
                 location_id = taco_info[2]
-                location = select_database('SELECT name FROM Locations WHERE id = ?', (location_id,), 2)
+                location = select_database('SELECT name FROM Locations\
+                WHERE id = ?', (location_id,), 2)
                 taco_list.append([name, price, location[0]])
         transaction_list.append([id_num, taco_list])
-    print(transaction_list)
     return render_template("admin.html", tranc=transaction_list,
                            title="Admin")
 
@@ -104,20 +107,21 @@ def place_order():
             # The following code is used to create variables out of the items
             # in the columns in the table "Taco_types"
             taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
-                                (taco_id[i],), 2)
+                                   (taco_id[i],), 2)
             photo = taco[1]
             name = taco[2]
             cost = taco[5]
             location_id = taco[6]
+            # The following database query is used select the name from the
+            # Locations tabe where the id is the number used as the foreighn
+            # key for thechosen taco
             location = select_database('SELECT name FROM Locations WHERE id = ?',
-                                    (location_id,), 2)
+                                       (location_id,), 2)
             taco_name = "taco"+str(i+1)
             taco_list.append([photo, name, cost, location])
             total_cost += int(cost.split(" ")[0])
-            # The following data query is used to select the items from the "name"
-            # column of the table "locations" where the id is whatever the id is
-            # from the "loations" column in "Taco_Types" table.
             if i == 0:
+
                 sql_statement = "INSERT INTO Orders (%s) VALUES (?)" % (taco_name,)
                 commit_database(sql_statement, (int(taco[0]),))
             else:
