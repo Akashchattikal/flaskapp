@@ -1,28 +1,28 @@
 <h3>&nbsp;&copy;2023 Akash Chattikal</h3>
 
-<form action="admin.html" onsubmit="return authenticate()" class="">
-    <label for="username">Username</label>
-    <!-- added IDs to the inputs -->
-    <input
-      id="username"
-      type="text"
-      placeholder="Enter Username"
-      name="username"
-      required
-    />
-    <label for="password">Password</label>
-    <input
-      id="password"
-      type="password"
-      placeholder="Enter Password"
-      name="password"
-      required
-    />
-    <button type="submit">Submit</button>
-</form>
+
+<body>
+<div id="log_slot" class="modal">
+  
+  <form class="modal-content animate prevent-select" action="/log" method="post" onsubmit="return authenticate()">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('log_slot').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="/static/images/admin.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container prevent-select">
+      <label for="username"><p style="font-weight: 500;">Username</p></label>
+      <input class="input_slot" id ="username" type="text" placeholder="Enter Username" name="username" required>
+
+      <label for="password"><p style="font-weight: 500;">Password</p></label>
+      <input class="input_slot" id="password" type="password" placeholder="Enter Password" name="password" required>
+        
+      <button class="button_form" type="submit">Login</button>
+    </div>
+  </form>
+</div>
 
 <script>
-    //Following function gets values of the username and password fields and checks to see if they match a hard coded username and password 
     function authenticate(){
     var authorised;
 
@@ -30,16 +30,27 @@
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
+    console.log(username)
+
     //check to see if the password and username match
-    if(username == "admin" && password == "123456"){
+    if(username == ":)" && password == ":)"){
         authorised = true;
     }
     else{ // username or password do not match
         authorised = false;
         //alert user
         alert("You Are Not Admin Are You?!");
-    }
+    }}
+    var modal = document.getElementById('log_slot');
 
-    }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
 </script>
+</body>
+
   

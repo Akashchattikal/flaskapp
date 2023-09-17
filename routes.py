@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 import sqlite3
 
 
@@ -78,10 +78,6 @@ def admin():
 
 
 # Creates a URL route called "/log" and renders it into log.html
-@app.route("/log")
-def login():
-    return render_template("log.html", title="Login")
-
 
 # Creates a URL route called "/order" and renders it into order.html
 @app.route("/order")
@@ -121,7 +117,7 @@ def place_order():
             taco_list.append([photo, name, cost, location])
             total_cost += int(cost.split(" ")[0])
             if i == 0:
-
+                # Prepares statement by having the variable taco_name as the designated column
                 sql_statement = "INSERT INTO Orders (%s) VALUES (?)" % (taco_name,)
                 commit_database(sql_statement, (int(taco[0]),))
             else:
@@ -131,7 +127,8 @@ def place_order():
                 commit_database(sql_statement, None)
     else:
         return redirect(url_for("order"))
-    return render_template("/orders.html", tacos=taco_list, total_cost=total_cost)
+    return render_template("/orders.html", tacos=taco_list,
+                           total_cost=total_cost)
 
 
 # Creates a URL route called "/all_tacos" and renders it into all_tacos.html
@@ -150,36 +147,39 @@ def tacos(id):
     # The follwing data query is used to select a specific item from the table
     # "Taco_Types" where the id is whatever the <id> is from the URL
     taco = select_database('SELECT * FROM Taco_Types WHERE id = ?', (id,), 2)
-    # The following data query is used to select the name of the Tortialla used
-    # for taco the user selected with the use of the id in the 4th column of
-    # the table "Taco_Types"
-    tortilla = select_database('SELECT name FROM Tortilla WHERE id = ?',
-                               (taco[3],), 2)
-    # The following data query is used to select all the ingrediants used for
-    # taco where the id (tid) is whatever the id used in the URL is
-    # through the table "Taco_Ingrediants"
-    ingrediants = select_database('SELECT * FROM Ingrediants WHERE id IN \
-(SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,), 1)
-    # The following data query is used to select all the seasonings used for
-    # taco where the id (tid) is whatever the id used in the URL is
-    # through the table "Taco_Seasonings"
-    seasonings = select_database('SELECT * FROM Seasonings WHERE id IN \
-(SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,), 1)
-    # The follwing code is used to create a variable for items in column 7 of
-    # the table "Taco_Types where the locations of where specific tacos are
-    # availabe are inputed through its id
-    location_id = taco[6]
-    # The following code establishes a connection with the function used to
-    # create a connection to the database where the data query can be used
-    # The following data query is used to select the specifc item from the
-    # column "name" in the table Locations where the id is the location_id
-    # variable
-    location = select_database('SELECT name FROM Locations WHERE id = ?',
-                               (location_id,), 2)
-    return render_template('tacos.html',
-                           ingrediants=ingrediants, tortilla=tortilla,
-                           taco=taco, seasonings=seasonings,
-                           location=location[0])
+    if taco:
+        # The following data query is used to select the name of the Tortialla used
+        # for taco the user selected with the use of the id in the 4th column of
+        # the table "Taco_Types"
+        tortilla = select_database('SELECT name FROM Tortilla WHERE id = ?',
+                                (taco[3],), 2)
+        # The following data query is used to select sall the ingrediants used for
+        # taco where the id (tid) is whatever the id used in the URL is
+        # through the table "Taco_Ingrediants"
+        ingrediants = select_database('SELECT * FROM Ingrediants WHERE id IN \
+    (SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,), 1)
+        # The following data query is used to select all the seasonings used for
+        # taco where the id (tid) is whatever the id used in the URL is
+        # through the table "Taco_Seasonings"
+        seasonings = select_database('SELECT * FROM Seasonings WHERE id IN \
+    (SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,), 1)
+        # The follwing code is used to create a variable for items in column 7 of
+        # the table "Taco_Types where the locations of where specific tacos are
+        # availabe are inputed through its id
+        location_id = taco[6]
+        # The following code establishes a connection with the function used to
+        # create a connection to the database where the data query can be used
+        # The following data query is used to select the specifc item from the
+        # column "name" in the table Locations where the id is the location_id
+        # variable
+        location = select_database('SELECT name FROM Locations WHERE id = ?',
+                                   (location_id,), 2)
+        return render_template('tacos.html',
+                               ingrediants=ingrediants, tortilla=tortilla,
+                               taco=taco, seasonings=seasonings,
+                               location=location[0])
+    else:
+        abort(404)
 
 
 # The following code is used to display "404.html" when the website goes
