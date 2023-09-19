@@ -413,14 +413,6 @@ h4 {
     z-index: -1;
 }
 
-.admin_nav {
-    display: block;
-    height: 50px;
-    width: 50px;
-    border-radius: 20px;
-    z-index: -1;
-}
-
 .taco_img:hover,
 .taco_img:focus { 
     transition: all 0.4s;
@@ -591,6 +583,7 @@ optgroup {
     color: white;
     padding: 14px 20px;
     border-radius: 20px;
+    z-index: 1;
 }
 
 .admin_log:hover,

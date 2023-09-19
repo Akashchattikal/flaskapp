@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, abort, session
-from math import ceil
 import sqlite3
 
 
@@ -33,16 +32,35 @@ def commit_database(statement, id):
     conn.commit()
 
 
+def update_prices():
+    taco_deals = select_database("SELECT * FROM Deals;", None, 1)
+    if taco_deals:
+        for taco in taco_deals:
+            taco_id = taco[0]
+            percentage = taco[1]
+            taco_price = select_database("SELECT price FROM Taco_Types WHERE id=?;", (taco_id,), 2)
+            taco_price = taco_price[0].split(" ")[0]
+            new_price = round(int(taco_price)*(1-int(percentage)/100))
+            new_price = "%s Gold Coins" % (str(new_price),)
+            sql_statement = "UPDATE Taco_Types SET discount_price='%s' WHERE id=?;" % (new_price,)
+            commit_database(sql_statement, (taco_id,))
+    else:
+        abort(404)
+
+
 # Creates a URL route called "/" and renders it into home.html
 @app.route("/")
 def home():
+    update_prices()
     deal_list = []
     deals = select_database("SELECT * FROM Deals WHERE percentage>0;", None, 1)
-    print(deals)
-    for deal in deals:
-        percent = deal[1]
-        taco_name = select_database("SELECT name FROM Taco_Types WHERE id=?;", (deal[0],), 2)
-        deal_list.append((taco_name[0], percent))
+    if deals:
+        for deal in deals:
+            percent = deal[1]
+            taco_name = select_database("SELECT name FROM Taco_Types WHERE id=?;", (deal[0],), 2)
+            deal_list.append((taco_name[0], percent))
+    else:
+        deal_list = None
     return render_template("home.html", title="Home", deals=deal_list)
 
 
@@ -101,13 +119,7 @@ def deal():
         # Prepares statement by having the variable taco_name as the designated column
         sql_statement = "UPDATE Deals SET percentage=%s WHERE tid=%s;" % (int(percentage), taco_id)
         commit_database(sql_statement, None)
-        taco_price = select_database("SELECT price FROM Taco_Types WHERE id=?;", (taco_id,), 2)
-        taco_price = taco_price[0].split(" ")[0]
-        new_price = ceil(int(taco_price)*(1-int(percentage)/100))
-        new_price = "%s Gold Coins" % (str(new_price),)
-        print(new_price)
-        sql_statement = "UPDATE Taco_Types SET discount_price='%s' WHERE id=?;" % (new_price,)
-        commit_database(sql_statement, taco_id)
+        update_prices()
     else:
         return redirect(url_for("admin"))
     return redirect(url_for("home"))
@@ -141,6 +153,7 @@ def order():
 # "/place_order"
 @app.route("/place_order", methods=["POST"])
 def place_order():
+    update_prices()
     # This code makes "taco_id" into a request form
     taco_id = request.form.getlist("taco")
     taco_list = []
@@ -153,8 +166,8 @@ def place_order():
                                    (taco_id[i],), 2)
             photo = taco[1]
             name = taco[2]
-            cost = taco[5]
-            location_id = taco[6]
+            cost = taco[6]
+            location_id = taco[7]
             # The following database query is used select the name from the
             # Locations tabe where the id is the number used as the foreighn
             # key for thechosen taco
@@ -185,6 +198,7 @@ id = %s" % (taco_name, taco_id[i], last_id)
 # Creates a URL route called "/all_tacos" and renders it into all_tacos.html
 @app.route("/all_tacos")
 def all_tacos():
+    update_prices()
     # The following data query selects the items from the table "Taco_Types"
     # "fetchall()" makes the dataquery select everything from the table
     results = select_database("SELECT * FROM Taco_Types", None, 1)
@@ -224,7 +238,7 @@ def tacos(id):
         # column "name" in the table Locations where the id is the location_id
         # variable
         original_cost = taco[5]
-        discount_cost = taco[7]
+        discount_cost = taco[6]
         location = select_database('SELECT name FROM Locations WHERE id = ?',
                                    (location_id,), 2)
         return render_template('tacos.html', ingrediants=ingrediants,

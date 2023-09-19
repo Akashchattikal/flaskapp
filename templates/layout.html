@@ -21,7 +21,7 @@
                 {% include "nav.html" %}
             </nav>
             {% if request.url == 'http://127.0.0.1:5000/admin' %}
-                <!-- <a onclick="document.getElementById('log_slot').style.display='block'" class="admin_log prevent-select">Admin Login</a> -->
+            <img class="ad_cover"    src="static/images/cover.png">
             {% elif request.url != 'http://127.0.0.1:5000/admin' %}
                 <a onclick="document.getElementById('log_slot').style.display='block'" class="admin_log prevent-select">Admin Login</a>
             {% endif %}

@@ -6,13 +6,18 @@
         <tr>
             <th><h1 class="title">Welcome To <br>TacoKing</h1></th>
             <td rowspan="6" class="section norm_td shadow rounded">
-                <h2>Special Deals Today!</h2><br>
-                {% for deal in deals %}
-                {% if deal[1] != 0 %}
-                <p>{{deal[0]}} is {{deal[1]}}% off!</p><br>
+                {% if deals != None %}
+                    <h2>Special Deals Today!</h2><br>
+                    {% for deal in deals %}
+                    {% if deal[1] != 0 %}
+                    <p>{{deal[0]}} is {{deal[1]}}% off!</p><br>
+                    {% endif %}
+                    {% endfor %}
+                    <p>Get It Now While Stocks Last!</p>
+                {% else %}
+                    <h2>Congratulations!<br><br>No Special Deals Today!</h2><br>
+                    <p>You may pay at full price!</p>
                 {% endif %}
-                {% endfor %}
-                <p>Get It Now While Stocks Last!</p>
             </td>
         </tr>
         <tr>
