@@ -33,7 +33,15 @@
                     </p>
                     &nbsp;
                 <h3>Costs:</h3>
-                <p>Costs {{ taco[5] }}</p>
+                {% if disc_cost != cost %}
+                    <p>Costs {{ disc_cost }}</p>
+                    <p>Original cost {{ cost }}</p>
+                {% else %}
+                    <p>Costs {{ cost }}</p>
+                {% endif %}
+
+
+                
             </td>
         </tr>
     </table>

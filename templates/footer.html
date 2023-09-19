@@ -23,33 +23,14 @@
 </div>
 
 <script>
-    function authenticate(){
-    var authorised;
-
-    //get input values
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-
-    console.log(username)
-
-    //check to see if the password and username match
-    if(username == ":)" && password == ":)"){
-        authorised = true;
-    }
-    else{ // username or password do not match
-        authorised = false;
-        //alert user
-        alert("You Are Not Admin Are You?!");
-    }}
     var modal = document.getElementById('log_slot');
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
   }
-
 </script>
 </body>
 

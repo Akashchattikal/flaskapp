@@ -27,7 +27,7 @@ main {
 }
 
 footer {
-    padding-top: 45px;
+    padding: 20px;
     margin-top: auto;
     background-color:#E7E7E7;
 }
@@ -138,6 +138,11 @@ table, th, td {
     
 }
 
+.deal_td {
+    text-align: center;
+    padding-top: 19px;
+}
+
 .orders_th {
     padding-top: 20px;
     padding-bottom: 25px;
@@ -187,10 +192,11 @@ table, th, td {
 }
 
 .admin_table {
+    padding-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(106, 106, 106, 0.6);
-    width: 80%;
+    width: 50%;
+    padding-left: 20px;
 }
 
 .taco_td {
@@ -276,10 +282,6 @@ table, th, td {
     padding-top:10px;
     padding-right:10px;
     padding-bottom:10px;
-}
-
-.mix {
-    border: 1px solid black;
 }
 
 .thanks {
@@ -380,6 +382,13 @@ h4 {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 125%;
+}
+
+.admin {
+    background-image: url(../images/admin_bg.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 .secret {
@@ -691,4 +700,23 @@ img.avatar {
 @keyframes animatezoom {
   from {transform: scale(0)} 
   to {transform: scale(1)}
+}
+
+.percent {
+    width: 200px;
+    height: 60px;
+    border:2px solid rgb(106, 106, 106);
+    background-color: rgb(106, 106, 106, 0.5);
+    color: white;
+    border-radius: 10px;
+    text-align:center;
+}
+
+.ad_footer {
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+}
+
+input::placeholder {
+    color: white;
 }

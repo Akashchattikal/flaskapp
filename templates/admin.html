@@ -1,11 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<body>
-    <table class="admin_table shadow">
+<body class="admin">
+    <table class="admin_table shadow table_bg rounded">
+        <tr>
+            <td colspan="3" style="padding-top: 18px;">
+                <h2 style="text-align: center;">
+                    Change Special Deal
+                </h2>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <form action="/set_deal", method="post", enctype="multipart/form-data">
+                <td style="text-align: center;">
+                    <b>
+                        <br>
+                        <select class="round_select" name="taco" id="taco">
+                            <!-- This label makes a small title at the start of the drop down -->
+                            <optgroup label="Tacos">
+                                <!-- This option creates a placeholder for the select tag -->
+                                <option value="" disabled selected hidden>Choose A Taco</option>
+                                {% for item in tacos %}
+                                <option value="{{item[1]}}">{{item[0]}}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                    </b>
+                </td>
+                <td class="deal_td">
+                    <input type="number" id="percent" name="percent" placeholder="Type A Percentage" min="0" max="100" class="percent center">
+                </td>
+                <td class="deal_td">
+                    <input type="submit" value="Change" class="select_input">
+                </td>
+                
+            </form>
+        </tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table class="admin_table shadow table_bg rounded ad_footer">
         {% for item in tranc %}
-        
-        <tr style="border: 10px #000000;">
+        <tr>
             <td><b>Transaction {{item[0]}}</b></td>
             {% for i in item[1] %}
             {% set outer_loop = loop %}
