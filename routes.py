@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, abort, session
+from flask import Flask, render_template, request, redirect, url_for, abort, \
+    session
 import sqlite3
 
 
@@ -6,15 +7,17 @@ app = Flask(__name__)
 app.secret_key = "secret_key"
 
 
-# Adds a connection to the database and chooses whether the code A
-# requires a fetchall() or fetchone() depending on the mode placed on the route
+# SQL function for SELECT statements, returns queries
 def select_database(statement, id, mode):
+    # Connects to database
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor()
+    # If the SELECT statement does not require an ID
     if id is None:
         cur.execute(statement)
     else:
         cur.execute(statement, id)
+    # If SELECT statement wants multiples
     if mode == 1:
         results = cur.fetchall()
     else:
@@ -22,9 +25,11 @@ def select_database(statement, id, mode):
     return results
 
 
+# SQL fucntion for statements that UPDATE or INSERT
 def commit_database(statement, id):
     conn = sqlite3.connect("tacoshop.db")
     cur = conn.cursor()
+    # If ID is none execute statement
     if id is None:
         cur.execute(statement)
     else:
@@ -32,15 +37,23 @@ def commit_database(statement, id):
     conn.commit()
 
 
+# Gets all deals, then checks for percentage
+# Multiplies percentage by original cost
+# Updates Taco_Types with the new discounted price
 def update_prices():
     taco_deals = select_database("SELECT * FROM Deals;", None, 1)
+    # Error prevention if taco_deals query returns an empty list
     if taco_deals:
         for taco in taco_deals:
             taco_id = taco[0]
             percentage = taco[1]
             taco_price = select_database("SELECT price FROM Taco_Types WHERE id=?;", (taco_id,), 2)
+            # Take price by splitting string (e.g  22 gold coins) -> 22
             taco_price = taco_price[0].split(" ")[0]
+            # Times the taco_price with the percentage left over from taking
+            # away the discount percent (e.g 22 * (1-0.2))
             new_price = round(int(taco_price)*(1-int(percentage)/100))
+            # Add the new price with the string "Gold Coins"
             new_price = "%s Gold Coins" % (str(new_price),)
             sql_statement = "UPDATE Taco_Types SET discount_price='%s' WHERE id=?;" % (new_price,)
             commit_database(sql_statement, (taco_id,))
@@ -48,60 +61,64 @@ def update_prices():
         abort(404)
 
 
-# Creates a URL route called "/" and renders it into home.html
+# Calls update_prices() to check for discounts and displays deals
 @app.route("/")
 def home():
     update_prices()
     deal_list = []
+    # Gets all deals that have a sale (NOT 0% off)
     deals = select_database("SELECT * FROM Deals WHERE percentage>0;", None, 1)
+    # If nothing is on sale then sets deal_list to None where an jinja if statement will say something special
     if deals:
         for deal in deals:
             percent = deal[1]
             taco_name = select_database("SELECT name FROM Taco_Types WHERE id=?;", (deal[0],), 2)
+            # Appends the taco name and percentage of the taco to deal_list to be organised nicely
             deal_list.append((taco_name[0], percent))
     else:
         deal_list = None
     return render_template("home.html", title="Home", deals=deal_list)
 
 
-# Creates a URL route called "/about" and renders it into about.html
 @app.route("/about")
 def about_us():
     return render_template("about.html", title="About Us")
 
 
-# Creates a URL route called "/orders" and renders it into orders.html
 @app.route("/orders")
 def orders():
     return render_template("orders.html", title="Recipt")
 
 
-# Creates a URL route called "/admin" and renders it into log.html
+# Gives an overview of all transactions
+# Allows user changes deals
+# Allows Admin with password only
 @app.route("/admin")
 def admin():
     if session["admin"] is True:
-        taco_names = select_database("SELECT name, id FROM Taco_Types;", None,
-                                     1)
-        # The following data qu ery selects the items from the table "Orders"
-        # "fetchall()"  from the function makes the dataquery select everything
-        # from the table
+        taco_names = select_database("SELECT name, id FROM Taco_Types;", None, 1)
+        # Gets all transactions from Orders
         tranc = select_database('SELECT * FROM Orders', None, 1)
-        # The following code makes a list variable to display all the orders
-        # in the admin page
         transaction_list = []
+        # Splits transactions into individual entries and loops for each one
         for i in tranc:
             id_num = i[0]
             taco_list = []
+            # Loops through all the columns in each individual entry (id -> taco1 -> taco2 etc.)
             for taco in range(len(i)):
+                # If taco == 0 (the first index which is the transaction ID as I only want taco information
                 if i[taco] is not None and taco != 0:
                     taco_info = select_database('SELECT name, price, location \
                     FROM Taco_Types WHERE id = ?', (i[taco],), 2)
+                    # Assigns name, price, location_id, and location to easy to read variables
                     name = taco_info[0]
                     price = taco_info[1]
                     location_id = taco_info[2]
                     location = select_database('SELECT name FROM Locations\
                     WHERE id = ?', (location_id,), 2)
+                    # Appends it to an organised list so it is easy to load in the information using Jinja
                     taco_list.append([name, price, location[0]])
+            # Appends taco_list with the corresponding ID so they're linked together and sends it to Jinja in admin.html
             transaction_list.append([id_num, taco_list])
         return render_template("admin.html", tranc=transaction_list,
                                tacos=taco_names, title="Admin")
@@ -118,18 +135,23 @@ def deal():
     if taco_id:
         # Prepares statement by having the variable taco_name as the designated column
         sql_statement = "UPDATE Deals SET percentage=%s WHERE tid=%s;" % (int(percentage), taco_id)
+        # Updates deals with the input percentage
         commit_database(sql_statement, None)
+        # Updates deal prices in Taco_Types
         update_prices()
     else:
         return redirect(url_for("admin"))
     return redirect(url_for("home"))
 
 
-# Creates a URL route called "/log" and renders it into log.html
+# When user tries to log in POST requests "username" and "password" from the HTML form
+# If the details are correct then it logs them into the admin page
 @app.route("/log", methods=["POST"])
 def login():
+
     username = request.form["username"]
     password = request.form["password"]
+    # Sets session to false so they cannot access the admin page from just typing /admin
     session["admin"] = False
     if password == ":)" and username == ":)":
         session["admin"] = True
@@ -138,13 +160,9 @@ def login():
         return redirect(url_for("home"))
 
 
-# Creates a URL route called "/order" and renders it into order.html
+
 @app.route("/order")
 def order():
-    # The "select_databse" connects the def function at the beginning
-    # of the routes.py to the order() function
-    # The data query "SELECT * FROM Taco_Types" brings everything from the
-    # table "Taco_Types" and renders it into the order.html
     locations_names = select_database("SELECT * FROM Taco_Types", None, 1)
     return render_template("order.html", locations_names=locations_names)
 
@@ -154,28 +172,23 @@ def order():
 @app.route("/place_order", methods=["POST"])
 def place_order():
     update_prices()
-    # This code makes "taco_id" into a request form
+    # This code makes "taco_id" into a request form of tacos
     taco_id = request.form.getlist("taco")
     taco_list = []
     total_cost = 0
     if taco_id:
         for i in range(len(taco_id)):
-            # The following code is used to create variables out of the items
-            # in the columns in the table "Taco_types"
-            taco = select_database('SELECT * FROM Taco_Types WHERE id = ?',
-                                   (taco_id[i],), 2)
+            taco = select_database('SELECT * FROM Taco_Types WHERE id = ?', (taco_id[i],), 2)           
             photo = taco[1]
             name = taco[2]
             cost = taco[6]
             location_id = taco[7]
-            # The following database query is used select the name from the
-            # Locations tabe where the id is the number used as the foreighn
-            # key for thechosen taco
             location = select_database('SELECT name FROM Locations WHERE \
 id = ?', (location_id,), 2)
+            # The taco column names are taco1, taco2 etc. so to get the correct column names we just use i
             taco_name = "taco"+str(i+1)
             taco_list.append([photo, name, cost, location])
-            # Adds all costs together
+            # Adds all costs together, splits from gold coins (e.g 22 gold coins -> 22)
             total_cost += int(cost.split(" ")[0])
             if i == 0:
                 # Prepares statement by having the variable taco_name as the designated column
@@ -205,38 +218,18 @@ def all_tacos():
     return render_template("all_tacos.html", results=results)
 
 
-# Creates a URL route called "/tacos<id>" where the <id> is the id of the items
-# selected in the all_tacos.html and renders it into tacos.html
 @app.route('/tacos/<int:id>')
 def tacos(id):
-    # The follwing data query is used to select a specific item from the table
-    # "Taco_Types" where the id is whatever the <id> is from the URL
     taco = select_database('SELECT * FROM Taco_Types WHERE id = ?', (id,), 2)
     if taco:
-        # The following data query is used to select the name of the Tortialla used
-        # for taco the user selected with the use of the id in the 4th column of
-        # the table "Taco_Types"
         tortilla = select_database('SELECT name FROM Tortilla WHERE id = ?',
                                    (taco[3],), 2)
-        # The following data query is used to select sall the ingrediants used for
-        # taco where the id (tid) is whatever the id used in the URL is
-        # through the table "Taco_Ingrediants"
         ingrediants = select_database('SELECT * FROM Ingrediants WHERE id IN \
     (SELECT iid FROM Taco_Ingrediants WHERE tid = ?)', (id,), 1)
-        # The following data query is used to select all the seasonings used for
-        # taco where the id (tid) is whatever the id used in the URL is
-        # through the table "Taco_Seasonings"
         seasonings = select_database('SELECT * FROM Seasonings WHERE id IN \
     (SELECT sid FROM Taco_Seasonings WHERE tid = ?)', (id,), 1)
-        # The follwing code is used to create a variable for items in column 7 of
-        # the table "Taco_Types where the locations of where specific tacos are
-        # availabe are inputed through its id
+        # Assigns location_id, original_cost and discount_cost to easy to read variables
         location_id = taco[7]
-        # The following code establishes a connection with the function used to
-        # create a connection to the database where the data query can be used
-        # The following data query is used to select the specifc item from the
-        # column "name" in the table Locations where the id is the location_id
-        # variable
         original_cost = taco[5]
         discount_cost = taco[6]
         location = select_database('SELECT name FROM Locations WHERE id = ?',
@@ -249,14 +242,12 @@ def tacos(id):
         abort(404)
 
 
-# The following code is used to display "404.html" when the website goes
-# into a page that does not exsist - Error 404
+# Diplays 404.html when the flaskapp needs to use errorhandler for 404 error
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 
-# Creates a URL route called "/secret" and renders it into secret.html
 @app.route("/secret")
 def secret():
     return render_template("secret.html", title="Easter Egg")
