@@ -16,8 +16,10 @@
     </table>
     <!-- The class 'Container' is used to make a flex box using lists -->
     <ul class="container">
+        <!-- Loops through every taco in Taco_Types -->
         {% for item in results %}
         <li class="multiple-taco taco_td item_li rounded shadow">
+            <!-- Displays a taco image and name -->
             <a href = "/tacos/{{ item[0] }}"><img class="taco_img" src="{{ item[1]}}"/></a>
             <h4 class="h4_center">{{ item[2]}}</h4>
         </li>

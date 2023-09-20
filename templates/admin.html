@@ -49,15 +49,22 @@
     <br>
     <br>
     <table class="admin_table shadow table_bg rounded ad_footer">
+        <!-- Item is one single transaction -->
         {% for item in tranc %}
         <tr>
+            <!-- For first loop, writes transaction number once -->
             <td><b>Transaction {{item[0]}}</b></td>
+            <!-- i = name, total price and location -->
             {% for i in item[1] %}
+            <!-- Sets loop index from 'for item in tranc' as outer_loop.
+                Correct information is in current transaction index NOT 0, 1 and 2 again-->
             {% set outer_loop = loop %}
             <tr>
                 <td></td>
+                <!-- (e.g outer_loop.index0 = Transaction No. 23) -->
                 <td>{{item[1][outer_loop.index0][0]}}</td>
-                <td>{{item[1][outer_loop.index0][1]}}</td>
+                <!-- Writes total price information only once per transaction -->
+                <td>{{item[1][outer_loop.index0][1]}} {% if loop.index0 == 0 %} Gold coins {% endif %}</td>
                 <td>{{item[1][outer_loop.index0][2]}}</td>
             </tr>
             

@@ -20,6 +20,7 @@
             <nav class="nav">
                 {% include "nav.html" %}
             </nav>
+            <!-- If the user is on the admin page the "Admin Login button should disappear" -->
             {% if request.url == 'http://127.0.0.1:5000/admin' %}
             <img class="ad_cover"    src="static/images/cover.png">
             {% elif request.url != 'http://127.0.0.1:5000/admin' %}

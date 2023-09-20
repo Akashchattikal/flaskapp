@@ -6,16 +6,20 @@
         <tr class="table_bg">
             <td class="td_center rounded shadow">
                 <img class="img_taco" src="/{{taco[1]}}"/>
+                <!-- Name -->
                 <h1>{{ taco[2] }}</h1>
                 &nbsp;
+                <!-- Description -->
                 <p>{{ taco[4] }}</p>
                 &nbsp;
                 <h3>Base:</h3>
+                <!-- Tortilla type -->
                 <p>Made From A {{ tortilla[0] }} Tortilla</p>
                 &nbsp;
-                <h3>Ingrediants:</h3>
+                <h3>Ingredients:</h3>
                 {% for item in ingrediants %}
                     <p>
+                        <!-- Ingredient and Ingredient's shape -->
                         <li> {{ item[1] }} - {{ item[2] }} </li>
                     </p>
                 {% endfor %}
@@ -23,6 +27,7 @@
                     <h3>Seasonings:</h3>
                 {% for item in seasonings %}
                     <p>
+                        <!-- Seasoning -->
                         <li> {{ item[1] }}</li>
                     </p>
                 {% endfor %}
@@ -33,6 +38,7 @@
                     </p>
                     &nbsp;
                 <h3>Costs:</h3>
+                <!-- If there is a deal on this taco: -->
                 {% if disc_cost != cost %}
                     <p><b>SALE! : </b>Costs {{ disc_cost }}</p>
                     <br>

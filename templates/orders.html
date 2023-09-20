@@ -8,8 +8,10 @@
             <th class="orders_th"><h1>Your Order</h1></th>
             <td class="norm_td"></td>
         </tr>
+        <!-- Loops through every ordered taco -->
         {% for taco in tacos %}
         <tr>
+            <!-- Displays img, name, cost and location -->
             <td class="norm_td"><img class="receipt_img" src="/{{taco[0]}}"/></td>
             <td class="td_center">{{taco[1]}} <br> Costs {{taco[2]}}</td>
             <td class="td_center">Available At <br> {{taco[3][0]}}</td>

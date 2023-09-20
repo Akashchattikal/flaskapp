@@ -41,7 +41,8 @@
                             <optgroup label="Tacos">
                                 <!-- This option creates a placeholder for the select tag -->
                                 <option value="" disabled selected hidden>Choose A Taco</option>
-                                {% for item in locations_names %}
+                                <!-- Fills in options automatically from Taco_Types -->
+                                {% for item in taco_names %}
                                 <option value="{{item[0]}}">{{item[2]}}</option>
                                 {% endfor %}
                             </optgroup>
@@ -55,8 +56,7 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-    // The following code allows the user add 1 to the variable counter, every time the select tag is cloned and with this
-    // limitation can be made to stop the function from cloning after it has 5 clones of the original
+    // Clones taco selection box, maxes out at 6 boxes, keeps track of amount of boxes using count
     var count = 0;
     var button = document.getElementsByClassName("row_btn")
     var form = document.getElementsByClassName("taco_form")
@@ -68,7 +68,7 @@
         }
     });
     
-    // The following code allows the user to remove the clones except for the original clone where the counter variable is at 0
+    // Removes clones but prevents the original from being deleted
     $("a").click(function(){
         if (count > 0){
             $("b:last").remove();

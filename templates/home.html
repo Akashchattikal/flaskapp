@@ -6,14 +6,18 @@
         <tr>
             <th><h1 class="title">Welcome To <br>TacoKing</h1></th>
             <td rowspan="6" class="section norm_td shadow rounded">
+                <!-- Displays deal information if there are deals currently on -->
                 {% if deals != None %}
                     <h2>Special Deals Today!</h2><br>
+                    <!-- Loops for every deal currently on -->
                     {% for deal in deals %}
+                    <!-- Just in case error prevention, if deal is 0% off, displays nothing -->
                     {% if deal[1] != 0 %}
                     <p>{{deal[0]}} is {{deal[1]}}% off!</p><br>
                     {% endif %}
                     {% endfor %}
                     <p>Get It Now While Stocks Last!</p>
+                <!-- If no deals, congratulates user for having to waste max amount of money on subpar food items -->
                 {% else %}
                     <h2>Congratulations<br><br>No Special Deals Today!</h2><br>
                     <p>Everything Is At Full Price!</p>
